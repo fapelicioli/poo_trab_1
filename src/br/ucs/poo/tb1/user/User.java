@@ -7,6 +7,13 @@ public class User {
 	String senha = "default";
 	final int permlevel = 0;
 	
+	public User(int id, String nome, String senha) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.senha = senha;
+	}
+	
 	public int getId() {
 		return id;
 	}
