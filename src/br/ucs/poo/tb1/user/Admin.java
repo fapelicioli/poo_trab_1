@@ -4,8 +4,8 @@ public class Admin extends User{
 
 	final int permlevel = 1;
 
-	public Admin(int id, String nome, String senha) {
-		super(id, nome, senha);
+	public Admin(String nome, String senha) {
+		super(nome, senha);
 	}
 	
 }
