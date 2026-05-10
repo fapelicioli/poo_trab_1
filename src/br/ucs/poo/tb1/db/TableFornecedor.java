@@ -34,5 +34,9 @@ public class TableFornecedor{
 		}
 		return null;
 	}
+	
+	public Map<Integer, Fornecedor> consultaCompleta() {
+		return this.data;
+	}
 
 }
