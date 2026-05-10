@@ -7,8 +7,8 @@ public class Fornecedor extends Cadastro{
 	String cnpj;
 	ArrayList<Produto> produtos;
 	
-	public Fornecedor(int id, String nome, String cnpj, ArrayList<Produto> produtos) {
-		this.id = id;
+	public Fornecedor(String nome, String cnpj, ArrayList<Produto> produtos) {
+		this.id = 00;
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.produtos = produtos;
