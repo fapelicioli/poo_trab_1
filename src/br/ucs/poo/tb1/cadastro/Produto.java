@@ -5,8 +5,8 @@ public class Produto extends Cadastro{
 	String sku;
 	int idFornecedor;
 	
-	public Produto(int id, String nome, String sku, int idFornecedor) {
-		this.id = id;
+	public Produto(String nome, String sku, int idFornecedor) {
+		this.id = 0;
 		this.nome = nome;
 		this.sku = sku;
 		this.idFornecedor = idFornecedor;
