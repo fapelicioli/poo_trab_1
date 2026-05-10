@@ -6,10 +6,20 @@ import br.ucs.poo.tb1.user.User;
 
 public class TableUser{
 
-	Map<Integer, User> data = new TreeMap<>();
+	Map<Integer, User> data;
+	int counter;
 	
-	public void incluir(int id, User user) {
+	public TableUser() {
+		data = new TreeMap<>();
+		counter = 1;
+	}
+
+	public int incluir(User user) {
+		int id = counter;
+		user.setId(id);
 		data.put(id, user);
+		counter++;
+		return id;
 	}
 
 	public void alterar(int id, User user) {
