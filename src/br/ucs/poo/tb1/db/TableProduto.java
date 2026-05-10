@@ -6,10 +6,20 @@ import br.ucs.poo.tb1.cadastro.Produto;
 
 public class TableProduto{
 	
-	Map<Integer, Produto> data = new TreeMap<>();
+	Map<Integer, Produto> data;
+	int counter;
 	
-	public void incluir(int id, Produto produto) {
+	public TableProduto() {
+		data = new TreeMap<>();
+		counter = 1;
+	}
+	
+	public int incluir(Produto produto) {
+		int id = counter;
+		produto.setId(id);
 		data.put(id, produto);
+		counter++;
+		return id;
 	}
 
 	public void alterar(int id, Produto produto) {
