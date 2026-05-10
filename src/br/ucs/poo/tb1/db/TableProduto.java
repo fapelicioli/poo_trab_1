@@ -44,5 +44,9 @@ public class TableProduto{
 		}
 		return null;
 	}
+	
+	public Map<Integer, Produto> consultaCompleta() {
+		return this.data;
+	}
 
 }
