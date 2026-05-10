@@ -6,10 +6,20 @@ import br.ucs.poo.tb1.cadastro.Transportadora;
 
 public class TableTransportadora{
 
-	Map<Integer, Transportadora> data = new TreeMap<>();
+	Map<Integer, Transportadora> data;
+	int counter;
 	
-	public void incluir(int id, Transportadora transportadora) {
+	public TableTransportadora() {
+		data = new TreeMap<>();
+		counter = 1;
+	}
+	
+	public int incluir(Transportadora transportadora) {
+		int id = counter;
+		transportadora.setId(id);
 		data.put(id, transportadora);
+		counter++;
+		return id;
 	}
 
 	public void alterar(int id, Transportadora transportadora) {
