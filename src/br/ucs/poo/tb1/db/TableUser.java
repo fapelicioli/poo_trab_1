@@ -35,4 +35,8 @@ public class TableUser{
 		return null;
 	}
 
+	public Map<Integer, User> consultaCompleta() {
+		return this.data;
+	}
+	
 }
