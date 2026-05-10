@@ -34,5 +34,9 @@ public class TableTransportadora{
 		}
 		return null;
 	}
+	
+	public Map<Integer, Transportadora> consultaCompleta() {
+		return this.data;
+	}
 
 }
