@@ -2,14 +2,13 @@ package br.ucs.poo.tb1.user;
 
 public class User {
 	
-	int id = 0;
-	String nome = "user";
-	String senha = "default";
+	int id;
+	String nome;
+	String senha;
 	final int permlevel = 0;
 	
-	public User(int id, String nome, String senha) {
-		super();
-		this.id = id;
+	public User(String nome, String senha) {
+		this.id = 0;
 		this.nome = nome;
 		this.senha = senha;
 	}
