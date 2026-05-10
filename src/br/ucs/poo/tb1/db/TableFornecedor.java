@@ -6,10 +6,20 @@ import br.ucs.poo.tb1.cadastro.Fornecedor;
 
 public class TableFornecedor{
 	
-	Map<Integer, Fornecedor> data = new TreeMap<>();
+	Map<Integer, Fornecedor> data;
+	int counter;
 	
-	public void incluir(int id, Fornecedor fornecedor) {
+	public TableFornecedor() {
+		data = new TreeMap<>();
+		counter = 1;
+	}
+	
+	public int incluir(Fornecedor fornecedor) {
+		int id = counter;
+		fornecedor.setId(id);
 		data.put(id, fornecedor);
+		counter++;
+		return id;
 	}
 
 	public void alterar(int id, Fornecedor fornecedor) {
