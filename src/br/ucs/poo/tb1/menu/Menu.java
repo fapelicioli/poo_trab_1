@@ -15,35 +15,35 @@ public class Menu {
 	TableTransportadora tabelat;
 	TableUser tabelau;
 	
-	public void login(TableUser tabela) {
-		System.out.println("\nInsira o nome do usuário: ");
-		String nome = entrada.next();
-		User user = tabela.consulta(nome);
-		
-		if(user == null) {
-			System.out.println("Usuario nao encontrado");
-			this.login(tabela);
-		}
-		
-		System.out.println("Insira a senha do usuário: ");
-		String senha = entrada.next();
-		if(senha != user.getSenha()) {
-			System.out.println("Senha incorreta");
-			this.login(tabela);
-		} else {
-			loggeduser = user;
-		}
-	}
-	
-	
-	public void principal(TableFornecedor f, TableProduto p, TableTransportadora t, TableUser u) {
+	public void login(TableFornecedor f, TableProduto p, TableTransportadora t, TableUser u) {
 		
 		this.tabelaf = f;
 		this.tabelap = p;
 		this.tabelat = t;
 		this.tabelau = u;
 		
-		loggeduser = tabelau.consulta("admin");
+		System.out.println("\nInsira o nome do usuário: ");
+		String nome = entrada.next();
+		User user = u.consulta(nome);
+		
+		if(user == null) {
+			System.out.println("Usuario nao encontrado");
+			this.login(f,p,t,u);
+		}
+		
+		System.out.println("Insira a senha do usuário: ");
+		String senha = entrada.next();
+		if(senha.compareTo(user.getSenha()) != 0) {
+			System.out.println("Senha incorreta");
+			this.login(f,p,t,u);
+		} else {
+			loggeduser = user;
+			this.principal();
+		}
+	}
+	
+	
+	public void principal() {
 		
 		System.out.println("\nSelecione o modulo:");
 		System.out.println("1 - Usuarios");
@@ -71,7 +71,7 @@ public class Menu {
 				return;
 			default:
 				System.out.println("Selecione uma opcao valida.");
-				this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+				this.principal();
 				break;
 		}
 	
@@ -129,13 +129,18 @@ public class Menu {
 				case 3:
 					System.out.println("Insira o id do usuário:");
 					id = entrada.nextInt();
-					System.out.println("Insira a nova senha do usuário:");
-					senha = entrada.next();
 					User tempuser = tabelau.consulta(id);
-					tempuser.setSenha(senha);
-					tabelau.alterar(id, tempuser);
-					System.out.println("Senha de usuario atualizada.");
-					this.users();
+					if(tempuser == null) {
+						System.out.println("Usuario nao encontrado.");
+					} else {
+					System.out.println("Insira a nova senha do usuário:");
+						senha = entrada.next();
+						tempuser.setSenha(senha);
+						tabelau.alterar(id, tempuser);
+						System.out.println("Senha de usuario atualizada.");
+						this.users();
+					}
+					break;
 				case 4:
 					System.out.println("\nUsuarios:");
 					for(User i : tabelau.consultaCompleta().values()) {
@@ -151,7 +156,7 @@ public class Menu {
 					this.users();
 					break;
 				case 6:
-					this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+					this.principal();
 					break;
 				default:
 					System.out.println("Selecione uma opcao valida.");
@@ -163,7 +168,7 @@ public class Menu {
 				this.trocasenha();
 				this.users();
 			} else if(selection == 2) {
-				this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+				this.principal();
 			} else {
 				System.out.println("Selecione uma opcao valida.");
 				this.users();
@@ -228,7 +233,7 @@ public class Menu {
 						this.fornecedores();
 						break;
 					case 5:
-						this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+						this.principal();
 						break;
 					default:
 						System.out.println("Selecione uma opcao valida.");
@@ -237,7 +242,7 @@ public class Menu {
 				}
 			} else {
 				if(selection == 2) {
-					this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+					this.principal();
 				} else {
 					System.out.println("Selecione uma opcao valida.");
 					this.fornecedores();
@@ -263,22 +268,30 @@ public class Menu {
 			case 1:
 				System.out.println("Insira o id do fornecedor que deseja alterar:");
 				id = entrada.nextInt();
-				System.out.println("Insira o novo nome para o fornecedor:");
-				nome = entrada.next();
 				tempf = tabelaf.consulta(id);
-				tempf.setNome(nome);
-				tabelaf.alterar(id, tempf);
-				System.out.println("Nome do fornecedor alterado.");
+				if(tempf == null) {
+					System.out.println("Fornecedor nao encontrado.");
+				} else {
+					System.out.println("Insira o novo nome para o fornecedor:");
+					nome = entrada.next();
+					tempf.setNome(nome);
+					tabelaf.alterar(id, tempf);
+					System.out.println("Nome do fornecedor alterado.");
+				}
 				break;
 			case 2:
 				System.out.println("Insira o id do fornecedor que deseja alterar:");
 				id = entrada.nextInt();
-				System.out.println("Insira o novo CNPJ para o fornecedor:");
-				cnpj = entrada.next();
 				tempf = tabelaf.consulta(id);
-				tempf.setCnpj(cnpj);
-				tabelaf.alterar(id, tempf);
-				System.out.println("CNPJ do fornecedor alterado.");
+				if(tempf == null) {
+					System.out.println("Fornecedor nao encontrado.");
+				} else {
+					System.out.println("Insira o novo CNPJ para o fornecedor:");
+					cnpj = entrada.next();
+					tempf.setCnpj(cnpj);
+					tabelaf.alterar(id, tempf);
+					System.out.println("CNPJ do fornecedor alterado.");
+				}
 				break;
 			case 3:
 				break;
@@ -310,22 +323,34 @@ public class Menu {
 				System.out.println("Insira o id do fornecedor:\n");
 				id = entrada.nextInt();
 				tempf = tabelaf.consulta(id);
-				System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |");
+				if(tempf == null) {
+					System.out.println("Fornecedor nao encontrado.");
+				}else {
+					System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |");
+				}
 				break;
 			case 2:
 				System.out.println("Insira o Nome do fornecedor:\n");
 				nome = entrada.next();
 				tempf = tabelaf.consulta(nome);
-				System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |");
+				if(tempf == null) {
+					System.out.println("Fornecedor nao encontrado.");
+				}else {
+					System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |");
+				}
 				break;
 			case 3:
 				System.out.println("Insira o id do fornecedor:\n");
 				id = entrada.nextInt();
 				tempf = tabelaf.consulta(id);
-				System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |\nProdutos do fornecedor:");
-				tempp = tempf.getProdutos();
-				for(Produto i : tempp) {
-					System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " |");
+				if(tempf == null) {
+					System.out.println("Fornecedor nao encontrado.");
+				}else {
+					System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |\nProdutos do fornecedor:");
+					tempp = tempf.getProdutos();
+					for(Produto i : tempp) {
+						System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " |");
+					}
 				}
 				break;
 			case 4:
@@ -404,7 +429,7 @@ public class Menu {
 				}
 			} else {
 				if(selection == 2) {
-					this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+					this.principal();
 				} else {
 					System.out.println("Selecione uma opcao valida.");
 					this.produtos();
@@ -432,41 +457,53 @@ public class Menu {
 			case 1:
 				System.out.println("Insira o id do produto que deseja alterar:");
 				id = entrada.nextInt();
-				System.out.println("Insira o novo nome do produto:");
-				nome = entrada.next();
 				tempp = tabelap.consulta(id);
-				idf = tempp.getIdFornecedor();
-				tabelat.consulta(idf).removeProduto(tempp);
-				tempp.setNome(nome);
-				tabelap.incluir(tempp);
-				tabelat.consulta(idf).addProduto(tempp);
-				System.out.println("Produto alterado com sucesso.");
+				if(tempp == null) {
+					System.out.println("Produto nao encontrado.");
+				} else {
+					System.out.println("Insira o novo nome do produto:");
+					nome = entrada.next();
+					idf = tempp.getIdFornecedor();
+					tabelat.consulta(idf).removeProduto(tempp);
+					tempp.setNome(nome);
+					tabelap.incluir(tempp);
+					tabelat.consulta(idf).addProduto(tempp);
+					System.out.println("Produto alterado com sucesso.");
+				}
 				break;
 			case 2:
 				System.out.println("Insira o id do produto que deseja alterar:");
 				id = entrada.nextInt();
-				System.out.println("Insira o sku do produto:");
-				sku = entrada.next();
 				tempp = tabelap.consulta(id);
-				idf = tempp.getIdFornecedor();
-				tabelat.consulta(idf).removeProduto(tempp);
-				tempp.setSku(sku);
-				tabelap.incluir(tempp);
-				tabelat.consulta(idf).addProduto(tempp);
-				System.out.println("Produto alterado com sucesso.");
+				if(tempp == null) {
+					System.out.println("Produto nao encontrado.");
+				} else {
+					System.out.println("Insira o sku do produto:");
+					sku = entrada.next();
+					idf = tempp.getIdFornecedor();
+					tabelat.consulta(idf).removeProduto(tempp);
+					tempp.setSku(sku);
+					tabelap.incluir(tempp);
+					tabelat.consulta(idf).addProduto(tempp);
+					System.out.println("Produto alterado com sucesso.");
+				}
 				break;
 			case 3:
 				System.out.println("Insira o id do produto que deseja alterar:");
 				id = entrada.nextInt();
-				System.out.println("Insira o id do fornecedor do produto:");
-				idf = entrada.nextInt();
 				tempp = tabelap.consulta(id);
-				int oldidf = tempp.getIdFornecedor();
-				tabelat.consulta(oldidf).removeProduto(tempp);
-				tempp.setIdFornecedor(idf);
-				tabelap.incluir(tempp);
-				tabelat.consulta(idf).addProduto(tempp);
-				System.out.println("Produto alterado com sucesso.");
+				if(tempp == null) {
+					System.out.println("Produto nao encontrado.");
+				} else {
+					System.out.println("Insira o id do fornecedor do produto:");
+					idf = entrada.nextInt();
+					int oldidf = tempp.getIdFornecedor();
+					tabelat.consulta(oldidf).removeProduto(tempp);
+					tempp.setIdFornecedor(idf);
+					tabelap.incluir(tempp);
+					tabelat.consulta(idf).addProduto(tempp);
+					System.out.println("Produto alterado com sucesso.");
+				}
 				break;
 			case 4:
 				break;
@@ -498,19 +535,31 @@ public class Menu {
 				System.out.println("Insira o id do produto que deseja consultar:");
 				id = entrada.nextInt();
 				produto = tabelap.consulta(id);
-				System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
+				if(produto == null) {
+					System.out.println("Produto nao encontrado.");
+				} else {
+					System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
+				}
 				break;
 			case 2:
 				System.out.println("Insira o nome do produto que deseja consultar:");
 				nome = entrada.next();
 				produto = tabelap.consulta(nome);
-				System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
+				if(produto == null) {
+					System.out.println("Produto nao encontrado.");
+				} else {
+					System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
+				}
 				break;
 			case 3:
 				System.out.println("Insira o sku do produto que deseja consultar:");
 				sku = entrada.next();
 				produto = tabelap.consultaSku(sku);
-				System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
+				if(produto == null) {
+					System.out.println("Produto nao encontrado.");
+				} else {
+					System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
+				}
 				break;
 			case 4:
 				System.out.println("Produtos cadastrados:");
@@ -575,7 +624,7 @@ public class Menu {
 						this.transportadoras();
 						break;
 					case 5:
-						this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+						this.principal();
 						break;
 					default:
 						System.out.println("Selecione uma opcao valida.");
@@ -584,7 +633,7 @@ public class Menu {
 				}
 			} else {
 				if(selection == 2) {
-					this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+					this.principal();
 				} else {
 					System.out.println("Selecione uma opcao valida.");
 					this.fornecedores();
@@ -610,22 +659,30 @@ public class Menu {
 			case 1:
 				System.out.println("Insira o id da transportadora que deseja alterar:");
 				id = entrada.nextInt();
-				System.out.println("Insira o novo nome para a transportadora:");
-				nome = entrada.next();
 				tempt = tabelat.consulta(id);
-				tempt.setNome(nome);
-				tabelat.alterar(id, tempt);
-				System.out.println("Nome do fornecedor alterado.");
+				if(tempt == null) {
+					System.out.println("Transportadora nao encontrada.");
+				} else {
+					System.out.println("Insira o novo nome para a transportadora:");
+					nome = entrada.next();
+					tempt.setNome(nome);
+					tabelat.alterar(id, tempt);
+					System.out.println("Nome do fornecedor alterado.");
+				}
 				break;
 			case 2:
 				System.out.println("Insira o id da transportadora que deseja alterar:");
 				id = entrada.nextInt();
-				System.out.println("Insira o novo CNPJ para a transportadora:");
-				cnpj = entrada.next();
 				tempt = tabelat.consulta(id);
-				tempt.setCnpj(cnpj);
-				tabelat.alterar(id, tempt);
-				System.out.println("CNPJ da transportadora alterado.");
+				if(tempt == null) {
+					System.out.println("Transportadora nao encontrada.");
+				} else {
+					System.out.println("Insira o novo CNPJ para a transportadora:");
+					cnpj = entrada.next();
+					tempt.setCnpj(cnpj);
+					tabelat.alterar(id, tempt);
+					System.out.println("CNPJ da transportadora alterado.");
+				}
 				break;
 			case 3:
 				break;
@@ -654,25 +711,37 @@ public class Menu {
 	
 		switch(selection) {
 			case 1:
-				System.out.println("Insira o id do fornecedor:");
+				System.out.println("Insira o id da transportadora:");
 				id = entrada.nextInt();
 				tempt = tabelat.consulta(id);
-				System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |");
+				if(tempt == null) {
+					
+				} else {
+					System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |");
+				}
 				break;
 			case 2:
-				System.out.println("Insira o Nome do fornecedor:");
+				System.out.println("Insira o Nome da transportadora:");
 				nome = entrada.next();
 				tempt = tabelat.consulta(nome);
-				System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |");
+				if(tempt == null) {
+					
+				} else {
+					System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |");
+				}
 				break;
 			case 3:
-				System.out.println("Insira o id do fornecedor:");
+				System.out.println("Insira o id da transportadora:");
 				id = entrada.nextInt();
 				tempt = tabelat.consulta(id);
-				System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |\nProdutos vinculados a transportadora:");
-				tempp = tempt.getProdutos();
-				for(Produto i : tempp) {
-					System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " |");
+				if(tempt == null) {
+					System.out.println("Transportadora nao encontrada.");
+				} else {
+					System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |\nProdutos vinculados a transportadora:");
+					tempp = tempt.getProdutos();
+					for(Produto i : tempp) {
+						System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " |");
+					}
 				}
 				break;
 			case 4:
