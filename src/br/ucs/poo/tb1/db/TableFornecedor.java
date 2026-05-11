@@ -2,41 +2,41 @@ package br.ucs.poo.tb1.db;
 
 import java.util.Map;
 import java.util.TreeMap;
-import br.ucs.poo.tb1.cadastro.Fornecedor;
+import br.ucs.poo.tb1.cadastro.Produto;
 
-public class TableFornecedor{
+public class TableProduto{
 	
-	private Map<Integer, Fornecedor> data;
+	private Map<Integer, Produto> data;
 	private int counter;
 	
-	public TableFornecedor() {
+	public TableProduto() {
 		data = new TreeMap<>();
 		counter = 1;
 	}
 	
-	public int incluir(Fornecedor fornecedor) {
+	public int incluir(Produto produto) {
 		int id = counter;
-		fornecedor.setId(id);
-		data.put(id, fornecedor);
+		produto.setId(id);
+		data.put(id, produto);
 		counter++;
 		return id;
 	}
 
-	public void alterar(int id, Fornecedor fornecedor) {
+	public void alterar(int id, Produto produto) {
 		data.remove(id);
-		data.put(id, fornecedor);
+		data.put(id, produto);
 	}
 
 	public void excluir(int id) {
 		data.remove(id);
 	}
 
-	public Fornecedor consulta(int id) {
+	public Produto consulta(int id) {
 		return data.get(id);
 	}
 	
-	public Fornecedor consulta(String nome) {
-		for(Fornecedor i : data.values()) {
+	public Produto consulta(String nome) {
+		for(Produto i : data.values()) {
 			String temp = i.getNome();
 			if(temp.compareTo(nome) == 0) {
 				return i;
@@ -45,7 +45,17 @@ public class TableFornecedor{
 		return null;
 	}
 	
-	public Map<Integer, Fornecedor> consultaCompleta() {
+	public Produto consultaSku(String sku) {
+		for(Produto i : data.values()) {
+			String temp = i.getSku();
+			if(temp.compareTo(sku) == 0) {
+				return i;
+			}
+		}
+		return null;
+	}
+	
+	public Map<Integer, Produto> consultaCompleta() {
 		return this.data;
 	}
 
