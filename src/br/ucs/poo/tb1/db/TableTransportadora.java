@@ -6,8 +6,8 @@ import br.ucs.poo.tb1.cadastro.Transportadora;
 
 public class TableTransportadora{
 
-	Map<Integer, Transportadora> data;
-	int counter;
+	private Map<Integer, Transportadora> data;
+	private int counter;
 	
 	public TableTransportadora() {
 		data = new TreeMap<>();
