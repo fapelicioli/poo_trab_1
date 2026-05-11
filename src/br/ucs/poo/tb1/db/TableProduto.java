@@ -38,7 +38,7 @@ public class TableProduto{
 	public Produto consulta(String nome) {
 		for(Produto i : data.values()) {
 			String temp = i.getNome();
-			if(temp == nome) {
+			if(temp.compareTo(nome) == 0) {
 				return i;
 			}
 		}
@@ -48,7 +48,7 @@ public class TableProduto{
 	public Produto consultaSku(String sku) {
 		for(Produto i : data.values()) {
 			String temp = i.getSku();
-			if(temp == sku) {
+			if(temp.compareTo(sku) == 0) {
 				return i;
 			}
 		}
