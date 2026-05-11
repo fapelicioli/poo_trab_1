@@ -6,8 +6,8 @@ import br.ucs.poo.tb1.user.User;
 
 public class TableUser{
 
-	Map<Integer, User> data;
-	int counter;
+	private Map<Integer, User> data;
+	private int counter;
 	
 	public TableUser() {
 		data = new TreeMap<>();
