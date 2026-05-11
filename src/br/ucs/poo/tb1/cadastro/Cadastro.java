@@ -2,8 +2,8 @@ package br.ucs.poo.tb1.cadastro;
 
 public abstract class Cadastro {
 	
-	int id;
-	String nome;
+	protected int id;
+	protected String nome;
 	
 	public int getId() {
 		return id;
