@@ -5,7 +5,7 @@ import java.util.TreeMap;
 
 public class Transportadora extends Fornecedor{
 
-	Map<Integer,Carga> cargas;
+	private Map<Integer,Carga> cargas;
 	
 	public Transportadora(String nome, String cnpj) {
 		super(nome, cnpj);
