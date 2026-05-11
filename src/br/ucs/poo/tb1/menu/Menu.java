@@ -788,7 +788,7 @@ public class Menu {
 					for(Carga i : tempt.getCargas().values()) {
 						System.out.println("\nProdutos na carga " + i.getId() + ":");
 						for(Produto j : i.getProdutos()) {
-							System.out.println("| id: " + j.getId() + " | Nome: " + j.getNome() + " | Sku: " + j.getSku() + " | Fornecedor: " + tabelat.consulta(j.getIdFornecedor()).getNome() + " |");
+							System.out.println("| id: " + j.getId() + " | Nome: " + j.getNome() + " | Sku: " + j.getSku() + " | Fornecedor: " + tabelaf.consulta(j.getIdFornecedor()).getNome() + " |");
 						}
 					}
 				}
