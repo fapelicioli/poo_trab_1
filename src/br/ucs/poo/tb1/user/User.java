@@ -2,10 +2,10 @@ package br.ucs.poo.tb1.user;
 
 public class User {
 	
-	int id;
-	String nome;
-	String senha;
-	int permlevel = 0;
+	private int id;
+	private String nome;
+	private String senha;
+	protected int permlevel = 0;
 	
 	public User(String nome, String senha) {
 		this.id = 0;
