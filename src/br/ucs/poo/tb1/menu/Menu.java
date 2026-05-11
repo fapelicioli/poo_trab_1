@@ -8,12 +8,12 @@ import br.ucs.poo.tb1.cadastro.*;
 
 public class Menu {
 	
-	Scanner entrada = new Scanner(System.in);
-	User loggeduser = null;
-	TableFornecedor tabelaf;
-	TableProduto tabelap;
-	TableTransportadora tabelat;
-	TableUser tabelau;
+	private Scanner entrada = new Scanner(System.in);
+	private User loggeduser = null;
+	private TableFornecedor tabelaf;
+	private TableProduto tabelap;
+	private TableTransportadora tabelat;
+	private TableUser tabelau;
 	
 	public void login(TableFornecedor f, TableProduto p, TableTransportadora t, TableUser u) {
 		
