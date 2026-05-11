@@ -1,5 +1,7 @@
 package br.ucs.poo.tb1.db;
 
+import java.util.ArrayList;
+
 import br.ucs.poo.tb1.cadastro.*;
 import br.ucs.poo.tb1.user.*;
 
@@ -99,6 +101,104 @@ public class DbBuilder {
 		tabelap.incluir(produto);
 		tabelaf.consulta(3).addProduto(produto);
 		
+		
+		Transportadora transportadora = new Transportadora("Carro Rapido Transportes","60.266.161/0001-53");
+		ArrayList<Produto> produtos= new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(15));
+		produtos.add(tabelap.consulta(18));
+		produtos.add(tabelap.consulta(20));
+		Carga carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+		
+		produtos = new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(2));
+		produtos.add(tabelap.consulta(3));
+		produtos.add(tabelap.consulta(5));
+		produtos.add(tabelap.consulta(6));
+		produtos.add(tabelap.consulta(7));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+		
+		produtos = new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(9));
+		produtos.add(tabelap.consulta(10));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+		
+		produtos = new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(11));
+		produtos.add(tabelap.consulta(21));
+		produtos.add(tabelap.consulta(3));
+		produtos.add(tabelap.consulta(6));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+		tabelat.incluir(transportadora);
+		
+		produtos = new ArrayList<Produto>();
+	    transportadora = new Transportadora("Voa Vento","53.168.642/0001-60");
+		produtos= new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(15));
+		produtos.add(tabelap.consulta(18));
+		produtos.add(tabelap.consulta(20));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+		
+		produtos = new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(2));
+		produtos.add(tabelap.consulta(3));
+		produtos.add(tabelap.consulta(5));
+		produtos.add(tabelap.consulta(6));
+		produtos.add(tabelap.consulta(7));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+
+		produtos = new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(9));
+		produtos.add(tabelap.consulta(10));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+
+		produtos = new ArrayList<Produto>();		
+		produtos.add(tabelap.consulta(11));
+		produtos.add(tabelap.consulta(21));
+		produtos.add(tabelap.consulta(3));
+		produtos.add(tabelap.consulta(6));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+		tabelat.incluir(transportadora);
+		
+		produtos = new ArrayList<Produto>();
+	    transportadora = new Transportadora("Rio Lento","62.502.352/0001-00");
+		produtos= new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(15));
+		produtos.add(tabelap.consulta(18));
+		produtos.add(tabelap.consulta(20));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+
+		produtos = new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(2));
+		produtos.add(tabelap.consulta(3));
+		produtos.add(tabelap.consulta(5));
+		produtos.add(tabelap.consulta(6));
+		produtos.add(tabelap.consulta(7));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+
+		produtos = new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(9));
+		produtos.add(tabelap.consulta(10));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+		
+		produtos = new ArrayList<Produto>();
+		produtos.add(tabelap.consulta(11));
+		produtos.add(tabelap.consulta(21));
+		produtos.add(tabelap.consulta(3));
+		produtos.add(tabelap.consulta(6));
+		carga = new Carga(produtos);
+		transportadora.addCarga(carga);
+		tabelat.incluir(transportadora);
 		
 		
 	}
