@@ -17,7 +17,7 @@ public class Menu {
 	
 	public void login(TableUser tabela) {
 		System.out.println("\nInsira o nome do usuário: ");
-		String nome = entrada.nextLine();
+		String nome = entrada.next();
 		User user = tabela.consulta(nome);
 		
 		if(user == null) {
@@ -26,7 +26,7 @@ public class Menu {
 		}
 		
 		System.out.println("Insira a senha do usuário: ");
-		String senha = entrada.nextLine();
+		String senha = entrada.next();
 		if(senha != user.getSenha()) {
 			System.out.println("Senha incorreta");
 			this.login(tabela);
@@ -103,10 +103,10 @@ public class Menu {
 					this.users();
 					break;
 				case 2:
-					System.out.println("Insira o nome do usuário:");
-					nome = entrada.nextLine();
-					System.out.println("Insira a senha do usuário:");
-					senha = entrada.nextLine();
+					System.out.println("Insira o nome do usuário:\n");
+					nome = entrada.next();
+					System.out.println("Insira a senha do usuário:\n");
+					senha = entrada.next();
 					int temp = 0;
 					while(temp == 0) {
 						System.out.println("Insira o nivel de permissao:");
@@ -130,7 +130,7 @@ public class Menu {
 					System.out.println("Insira o id do usuário:");
 					id = entrada.nextInt();
 					System.out.println("Insira a nova senha do usuário:");
-					senha = entrada.nextLine();
+					senha = entrada.next();
 					User tempuser = tabelau.consulta(id);
 					tempuser.setSenha(senha);
 					tabelau.alterar(id, tempuser);
@@ -174,7 +174,7 @@ public class Menu {
 	
 	private void trocasenha() {
 		System.out.println("Insira a nova senha do usuário:");
-		String senha = entrada.nextLine();
+		String senha = entrada.next();
 		loggeduser.setSenha(senha);
 		tabelau.alterar(loggeduser.getId(), loggeduser);
 		System.out.println("Senha de usuario atualizada.");
@@ -207,10 +207,10 @@ public class Menu {
 			if(loggeduser.getPermlevel() == 1) {
 				switch(selection) {
 					case 2:
-						System.out.println("Insira o nome do fornecedor:");
-						nome = entrada.nextLine();
-						System.out.println("Insira o cnpj do fornecedor:");
-						cnpj = entrada.nextLine();
+						System.out.println("Insira o nome do fornecedor:\n");
+						nome = entrada.next();
+						System.out.println("Insira o cnpj do fornecedor:\n");
+						cnpj = entrada.next();
 						fornecedor = new Fornecedor(nome,cnpj);
 						tabelaf.incluir(fornecedor);
 						System.out.println("Fornecedor cadastrado.");
@@ -264,7 +264,7 @@ public class Menu {
 				System.out.println("Insira o id do fornecedor que deseja alterar:");
 				id = entrada.nextInt();
 				System.out.println("Insira o novo nome para o fornecedor:");
-				nome = entrada.nextLine();
+				nome = entrada.next();
 				tempf = tabelaf.consulta(id);
 				tempf.setNome(nome);
 				tabelaf.alterar(id, tempf);
@@ -274,7 +274,7 @@ public class Menu {
 				System.out.println("Insira o id do fornecedor que deseja alterar:");
 				id = entrada.nextInt();
 				System.out.println("Insira o novo CNPJ para o fornecedor:");
-				cnpj = entrada.nextLine();
+				cnpj = entrada.next();
 				tempf = tabelaf.consulta(id);
 				tempf.setCnpj(cnpj);
 				tabelaf.alterar(id, tempf);
@@ -307,19 +307,19 @@ public class Menu {
 	
 		switch(selection) {
 			case 1:
-				System.out.println("Insira o id do fornecedor:");
+				System.out.println("Insira o id do fornecedor:\n");
 				id = entrada.nextInt();
 				tempf = tabelaf.consulta(id);
 				System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |");
 				break;
 			case 2:
-				System.out.println("Insira o Nome do fornecedor:");
-				nome = entrada.nextLine();
+				System.out.println("Insira o Nome do fornecedor:\n");
+				nome = entrada.next();
 				tempf = tabelaf.consulta(nome);
 				System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |");
 				break;
 			case 3:
-				System.out.println("Insira o id do fornecedor:");
+				System.out.println("Insira o id do fornecedor:\n");
 				id = entrada.nextInt();
 				tempf = tabelaf.consulta(id);
 				System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |\nProdutos do fornecedor:");
@@ -372,9 +372,9 @@ public class Menu {
 				switch(selection) {
 					case 2:
 						System.out.println("Insira o nome do produto:");
-						nome = entrada.nextLine();
+						nome = entrada.next();
 						System.out.println("Insira o sku do produto:");
-						sku = entrada.nextLine();
+						sku = entrada.next();
 						System.out.println("Insira o id do fornecedor do produto:");
 						idf = entrada.nextInt();
 						produto = new Produto(nome,sku,idf);
@@ -433,7 +433,7 @@ public class Menu {
 				System.out.println("Insira o id do produto que deseja alterar:");
 				id = entrada.nextInt();
 				System.out.println("Insira o novo nome do produto:");
-				nome = entrada.nextLine();
+				nome = entrada.next();
 				tempp = tabelap.consulta(id);
 				idf = tempp.getIdFornecedor();
 				tabelat.consulta(idf).removeProduto(tempp);
@@ -446,7 +446,7 @@ public class Menu {
 				System.out.println("Insira o id do produto que deseja alterar:");
 				id = entrada.nextInt();
 				System.out.println("Insira o sku do produto:");
-				sku = entrada.nextLine();
+				sku = entrada.next();
 				tempp = tabelap.consulta(id);
 				idf = tempp.getIdFornecedor();
 				tabelat.consulta(idf).removeProduto(tempp);
@@ -502,13 +502,13 @@ public class Menu {
 				break;
 			case 2:
 				System.out.println("Insira o nome do produto que deseja consultar:");
-				nome = entrada.nextLine();
+				nome = entrada.next();
 				produto = tabelap.consulta(nome);
 				System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
 				break;
 			case 3:
 				System.out.println("Insira o sku do produto que deseja consultar:");
-				sku = entrada.nextLine();
+				sku = entrada.next();
 				produto = tabelap.consultaSku(sku);
 				System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
 				break;
@@ -555,9 +555,9 @@ public class Menu {
 				switch(selection) {
 					case 2:
 						System.out.println("Insira o nome da transportadora:");
-						nome = entrada.nextLine();
+						nome = entrada.next();
 						System.out.println("Insira o cnpj da transportadora:");
-						cnpj = entrada.nextLine();
+						cnpj = entrada.next();
 						transportadora = new Transportadora(nome,cnpj);
 						tabelat.incluir(transportadora);
 						System.out.println("Transportadora cadastrada.");
@@ -611,7 +611,7 @@ public class Menu {
 				System.out.println("Insira o id da transportadora que deseja alterar:");
 				id = entrada.nextInt();
 				System.out.println("Insira o novo nome para a transportadora:");
-				nome = entrada.nextLine();
+				nome = entrada.next();
 				tempt = tabelat.consulta(id);
 				tempt.setNome(nome);
 				tabelat.alterar(id, tempt);
@@ -621,7 +621,7 @@ public class Menu {
 				System.out.println("Insira o id da transportadora que deseja alterar:");
 				id = entrada.nextInt();
 				System.out.println("Insira o novo CNPJ para a transportadora:");
-				cnpj = entrada.nextLine();
+				cnpj = entrada.next();
 				tempt = tabelat.consulta(id);
 				tempt.setCnpj(cnpj);
 				tabelat.alterar(id, tempt);
@@ -661,7 +661,7 @@ public class Menu {
 				break;
 			case 2:
 				System.out.println("Insira o Nome do fornecedor:");
-				nome = entrada.nextLine();
+				nome = entrada.next();
 				tempt = tabelat.consulta(nome);
 				System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |");
 				break;
