@@ -6,8 +6,8 @@ import br.ucs.poo.tb1.cadastro.Produto;
 
 public class TableProduto{
 	
-	Map<Integer, Produto> data;
-	int counter;
+	private Map<Integer, Produto> data;
+	private int counter;
 	
 	public TableProduto() {
 		data = new TreeMap<>();
