@@ -567,7 +567,7 @@ public class Menu {
 			case 4:
 				System.out.println("Produtos cadastrados:");
 				for(Produto i : tabelap.consultaCompleta().values()) {
-					System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " | Fornecedor: " + tabelat.consulta(i.getIdFornecedor()).getNome() + " |");
+					System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " | Fornecedor: " + tabelaf.consulta(i.getIdFornecedor()).getNome() + " |");
 				}
 				break;
 			case 5:
@@ -786,7 +786,7 @@ public class Menu {
 				} else {
 					System.out.println("\nCargas para a transportadora " + tempt.getNome() + ":");
 					for(Carga i : tempt.getCargas().values()) {
-						System.out.println("Produtos na carga " + i + ":\n");
+						System.out.println("\nProdutos na carga " + i.getId() + ":");
 						for(Produto j : i.getProdutos()) {
 							System.out.println("| id: " + j.getId() + " | Nome: " + j.getNome() + " | Sku: " + j.getSku() + " | Fornecedor: " + tabelat.consulta(j.getIdFornecedor()).getNome() + " |");
 						}
