@@ -423,6 +423,7 @@ public class Menu {
 						this.produtos();
 						break;
 					case 5:
+						this.principal();
 						break;
 					default:
 						System.out.println("Selecione uma opcao valida.");
