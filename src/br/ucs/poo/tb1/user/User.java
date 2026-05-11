@@ -5,7 +5,7 @@ public class User {
 	int id;
 	String nome;
 	String senha;
-	final int permlevel = 0;
+	int permlevel = 0;
 	
 	public User(String nome, String senha) {
 		this.id = 0;
