@@ -211,7 +211,7 @@ public class Menu {
 						nome = entrada.nextLine();
 						System.out.println("Insira o cnpj do fornecedor:");
 						cnpj = entrada.nextLine();
-						fornecedor = new Fornecedor(nome,cnpj,null);
+						fornecedor = new Fornecedor(nome,cnpj);
 						tabelaf.incluir(fornecedor);
 						System.out.println("Fornecedor cadastrado.");
 						this.fornecedores();
@@ -558,7 +558,7 @@ public class Menu {
 						nome = entrada.nextLine();
 						System.out.println("Insira o cnpj da transportadora:");
 						cnpj = entrada.nextLine();
-						transportadora = new Transportadora(nome,cnpj,null);
+						transportadora = new Transportadora(nome,cnpj);
 						tabelat.incluir(transportadora);
 						System.out.println("Transportadora cadastrada.");
 						this.transportadoras();
