@@ -72,6 +72,7 @@ public class Menu {
 			default:
 				System.out.println("Selecione uma opcao valida.");
 				this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+				break;
 		}
 	
 	}
@@ -100,6 +101,7 @@ public class Menu {
 				case 1:
 					this.trocasenha();
 					this.users();
+					break;
 				case 2:
 					System.out.println("Insira o nome do usuário:");
 					nome = entrada.nextLine();
@@ -123,6 +125,7 @@ public class Menu {
 					}
 					System.out.println("Usuario cadastrado.");
 					this.users();
+					break;
 				case 3:
 					System.out.println("Insira o id do usuário:");
 					id = entrada.nextInt();
@@ -139,17 +142,21 @@ public class Menu {
 						System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Permissao: " + i.getClass().getSimpleName() + " |");
 					}
 					this.users();
+					break;
 				case 5:
 					System.out.println("Insira o id do usuário para ser excluido:");
 					id = entrada.nextInt();
 					tabelau.excluir(id);
 					System.out.println("Usuario excluido.");
 					this.users();
+					break;
 				case 6:
 					this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+					break;
 				default:
 					System.out.println("Selecione uma opcao valida.");
 					this.users();
+					break;
 			}
 		} else {
 			if(selection == 1) {
@@ -208,20 +215,25 @@ public class Menu {
 						tabelaf.incluir(fornecedor);
 						System.out.println("Fornecedor cadastrado.");
 						this.fornecedores();
+						break;
 					case 3:
 						this.alteraFornecedor();
 						this.fornecedores();
+						break;
 					case 4:
 						System.out.println("Insira o id do fornecedor para ser excluido:");
 						id = entrada.nextInt();
 						tabelaf.excluir(id);
 						System.out.println("Fornecedor excluido.");
 						this.fornecedores();
+						break;
 					case 5:
 						this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+						break;
 					default:
 						System.out.println("Selecione uma opcao valida.");
 						this.fornecedores();
+						break;
 				}
 			} else {
 				if(selection == 2) {
@@ -257,6 +269,7 @@ public class Menu {
 				tempf.setNome(nome);
 				tabelaf.alterar(id, tempf);
 				System.out.println("Nome do fornecedor alterado.");
+				break;
 			case 2:
 				System.out.println("Insira o id do fornecedor que deseja alterar:");
 				id = entrada.nextInt();
@@ -266,11 +279,13 @@ public class Menu {
 				tempf.setCnpj(cnpj);
 				tabelaf.alterar(id, tempf);
 				System.out.println("CNPJ do fornecedor alterado.");
+				break;
 			case 3:
 				break;
 			default:
 				System.out.println("Selecione uma opcao valida.");
 				this.alteraFornecedor();
+				break;
 		}
 	}
 	
@@ -296,11 +311,13 @@ public class Menu {
 				id = entrada.nextInt();
 				tempf = tabelaf.consulta(id);
 				System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |");
+				break;
 			case 2:
 				System.out.println("Insira o Nome do fornecedor:");
 				nome = entrada.nextLine();
 				tempf = tabelaf.consulta(nome);
 				System.out.println("| id: " + tempf.getId() + " | Nome: " + tempf.getNome() + " | Cnpj: " + tempf.getCnpj() + " |");
+				break;
 			case 3:
 				System.out.println("Insira o id do fornecedor:");
 				id = entrada.nextInt();
@@ -310,16 +327,19 @@ public class Menu {
 				for(Produto i : tempp) {
 					System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " |");
 				}
+				break;
 			case 4:
-				System.out.println("\nUsuarios:");
+				System.out.println("\nFornecedores:");
 				for(Fornecedor i : tabelaf.consultaCompleta().values()) {
 					System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Cnpj: " + i.getCnpj() + " |");
 				}
+				break;
 			case 5:
 				break;
 			default:
 				System.out.println("Selecione uma opcao valida.");
 				this.consultaFornecedor();
+				break;
 		}
 	}
 	
@@ -363,20 +383,24 @@ public class Menu {
 						tabelat.consulta(idf).addProduto(produto);
 						System.out.println("Produto cadastrado.");
 						this.produtos();
+						break;
 					case 3:
 						this.alteraProduto();
 						this.produtos();
+						break;
 					case 4:
 						System.out.println("Insira o id do produto para ser excluido:");
 						id = entrada.nextInt();
 						tabelap.excluir(id);
 						System.out.println("Produto excluido.");
 						this.produtos();
+						break;
 					case 5:
 						break;
 					default:
 						System.out.println("Selecione uma opcao valida.");
 						this.produtos();
+						break;
 				}
 			} else {
 				if(selection == 2) {
@@ -417,6 +441,7 @@ public class Menu {
 				tabelap.incluir(tempp);
 				tabelat.consulta(idf).addProduto(tempp);
 				System.out.println("Produto alterado com sucesso.");
+				break;
 			case 2:
 				System.out.println("Insira o id do produto que deseja alterar:");
 				id = entrada.nextInt();
@@ -429,6 +454,7 @@ public class Menu {
 				tabelap.incluir(tempp);
 				tabelat.consulta(idf).addProduto(tempp);
 				System.out.println("Produto alterado com sucesso.");
+				break;
 			case 3:
 				System.out.println("Insira o id do produto que deseja alterar:");
 				id = entrada.nextInt();
@@ -441,11 +467,13 @@ public class Menu {
 				tabelap.incluir(tempp);
 				tabelat.consulta(idf).addProduto(tempp);
 				System.out.println("Produto alterado com sucesso.");
+				break;
 			case 4:
 				break;
 			default:
 				System.out.println("Selecione uma opcao valida.");
 				this.alteraProduto();
+				break;
 		}
 	}
 	
@@ -471,26 +499,31 @@ public class Menu {
 				id = entrada.nextInt();
 				produto = tabelap.consulta(id);
 				System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
+				break;
 			case 2:
 				System.out.println("Insira o nome do produto que deseja consultar:");
 				nome = entrada.nextLine();
 				produto = tabelap.consulta(nome);
 				System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
+				break;
 			case 3:
 				System.out.println("Insira o sku do produto que deseja consultar:");
 				sku = entrada.nextLine();
 				produto = tabelap.consultaSku(sku);
 				System.out.println("| id: " + produto.getId() + " | Nome: " + produto.getNome() + " | Sku: " + produto.getSku() + " | Fornecedor: " + tabelat.consulta(produto.getIdFornecedor()).getNome() + " |");
+				break;
 			case 4:
 				System.out.println("Produtos cadastrados:");
 				for(Produto i : tabelap.consultaCompleta().values()) {
 					System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " | Fornecedor: " + tabelat.consulta(i.getIdFornecedor()).getNome() + " |");
 				}
+				break;
 			case 5:
 				break;
 			default:
 				System.out.println("Selecione uma opcao valida.");
 				this.alteraProduto();
+				break;
 		}
 	}
 	
@@ -529,20 +562,25 @@ public class Menu {
 						tabelat.incluir(transportadora);
 						System.out.println("Transportadora cadastrada.");
 						this.transportadoras();
+						break;
 					case 3:
 						this.alteraTransportadora();
 						this.transportadoras();
+						break;
 					case 4:
 						System.out.println("Insira o id da transportadora para ser excluida:");
 						id = entrada.nextInt();
 						tabelat.excluir(id);
 						System.out.println("Transportadora excluida.");
 						this.transportadoras();
+						break;
 					case 5:
 						this.principal(this.tabelaf, this.tabelap, this.tabelat, this.tabelau);
+						break;
 					default:
 						System.out.println("Selecione uma opcao valida.");
 						this.transportadoras();
+						break;
 				}
 			} else {
 				if(selection == 2) {
@@ -578,6 +616,7 @@ public class Menu {
 				tempt.setNome(nome);
 				tabelat.alterar(id, tempt);
 				System.out.println("Nome do fornecedor alterado.");
+				break;
 			case 2:
 				System.out.println("Insira o id da transportadora que deseja alterar:");
 				id = entrada.nextInt();
@@ -587,11 +626,13 @@ public class Menu {
 				tempt.setCnpj(cnpj);
 				tabelat.alterar(id, tempt);
 				System.out.println("CNPJ da transportadora alterado.");
+				break;
 			case 3:
 				break;
 			default:
 				System.out.println("Selecione uma opcao valida.");
 				this.alteraTransportadora();
+				break;
 		}
 	}
 	
@@ -617,11 +658,13 @@ public class Menu {
 				id = entrada.nextInt();
 				tempt = tabelat.consulta(id);
 				System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |");
+				break;
 			case 2:
 				System.out.println("Insira o Nome do fornecedor:");
 				nome = entrada.nextLine();
 				tempt = tabelat.consulta(nome);
 				System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |");
+				break;
 			case 3:
 				System.out.println("Insira o id do fornecedor:");
 				id = entrada.nextInt();
@@ -631,16 +674,19 @@ public class Menu {
 				for(Produto i : tempp) {
 					System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " |");
 				}
+				break;
 			case 4:
-				System.out.println("\nUsuarios:");
+				System.out.println("\nTransportadoras:");
 				for(Fornecedor i : tabelat.consultaCompleta().values()) {
 					System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Cnpj: " + i.getCnpj() + " |");
 				}
+				break;
 			case 5:
 				break;
 			default:
 				System.out.println("Selecione uma opcao valida.");
 				this.consultaTransportadora();
+				break;
 		}
 	}
 	
