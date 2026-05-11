@@ -6,8 +6,8 @@ import br.ucs.poo.tb1.cadastro.Fornecedor;
 
 public class TableFornecedor{
 	
-	Map<Integer, Fornecedor> data;
-	int counter;
+	private Map<Integer, Fornecedor> data;
+	private int counter;
 	
 	public TableFornecedor() {
 		data = new TreeMap<>();
