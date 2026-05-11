@@ -38,7 +38,7 @@ public class TableTransportadora{
 	public Transportadora consulta(String nome) {
 		for(Transportadora i : data.values()) {
 			String temp = i.getNome();
-			if(temp == nome) {
+			if(temp.compareTo(nome) == 0) {
 				return i;
 			}
 		}
