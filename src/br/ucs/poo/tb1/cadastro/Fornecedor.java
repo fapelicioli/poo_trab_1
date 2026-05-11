@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public class Fornecedor extends Cadastro{
 
 	String cnpj;
-	ArrayList<Produto> produtos;
+	ArrayList<Produto> produtos = new ArrayList<Produto>();
 	
-	public Fornecedor(String nome, String cnpj, ArrayList<Produto> produtos) {
-		this.id = 0;
+	public Fornecedor(String nome, String cnpj) {
+		this.id = 00;
 		this.nome = nome;
 		this.cnpj = cnpj;
-		this.produtos = produtos;
 	}
 	
 	public String getCnpj() {
