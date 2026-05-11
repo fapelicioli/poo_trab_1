@@ -669,6 +669,7 @@ public class Menu {
 							idc = entrada.nextInt();
 							transportadora.removeCarga(idc);
 							System.out.println("Carga removida com sucesso.");
+							this.transportadoras();
 						}
 						break;
 					case 7:
