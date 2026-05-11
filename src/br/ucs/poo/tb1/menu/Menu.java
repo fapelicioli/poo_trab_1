@@ -668,7 +668,7 @@ public class Menu {
 							System.out.println("Insira o id da carga a ser removida:");
 							idc = entrada.nextInt();
 							transportadora.removeCarga(idc);
-							System.out.println("Carga removida");
+							System.out.println("Carga removida com sucesso.");
 						}
 						break;
 					case 7:
@@ -745,13 +745,13 @@ public class Menu {
 		
 		int id;
 		String nome;
-		Fornecedor tempt;
+		Transportadora tempt;
 		ArrayList<Produto> tempp;
 		
 		System.out.println("\nSelecione a consulta:");
 		System.out.println("1 - Consulta de transportadora por id");
 		System.out.println("2 - Consulta de transportadora por nome");
-		System.out.println("3 - Consulta produtos vinculados a transportadora");
+		System.out.println("3 - Consulta cargas da transportadora");
 		System.out.println("4 - Listar transportadoras");
 		System.out.println("5 - Cancelar");
 		
@@ -785,10 +785,12 @@ public class Menu {
 				if(tempt == null) {
 					System.out.println("Transportadora nao encontrada.");
 				} else {
-					System.out.println("| id: " + tempt.getId() + " | Nome: " + tempt.getNome() + " | Cnpj: " + tempt.getCnpj() + " |\nProdutos vinculados a transportadora:");
-					tempp = tempt.getProdutos();
-					for(Produto i : tempp) {
-						System.out.println("| id: " + i.getId() + " | Nome: " + i.getNome() + " | Sku: " + i.getSku() + " |");
+					System.out.println("\nCargas para a transportadora " + tempt.getNome() + ":");
+					for(Carga i : tempt.getCargas().values()) {
+						System.out.println("Produtos na carga " + i + ":\n");
+						for(Produto j : i.getProdutos()) {
+							System.out.println("| id: " + j.getId() + " | Nome: " + j.getNome() + " | Sku: " + j.getSku() + " | Fornecedor: " + tabelat.consulta(j.getIdFornecedor()).getNome() + " |");
+						}
 					}
 				}
 				break;
