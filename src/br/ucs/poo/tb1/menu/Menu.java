@@ -746,7 +746,6 @@ public class Menu {
 		int id;
 		String nome;
 		Transportadora tempt;
-		ArrayList<Produto> tempp;
 		
 		System.out.println("\nSelecione a consulta:");
 		System.out.println("1 - Consulta de transportadora por id");
