@@ -416,6 +416,8 @@ public class Menu {
 					case 4:
 						System.out.println("Insira o id do produto para ser excluido:");
 						id = entrada.nextInt();
+						idf = tabelap.consulta(id).getIdFornecedor();
+						tabelaf.consulta(idf).removeProduto(tabelap.consulta(id));
 						tabelap.excluir(id);
 						System.out.println("Produto excluido.");
 						this.produtos();
