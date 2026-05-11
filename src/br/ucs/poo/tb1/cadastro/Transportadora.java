@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Transportadora extends Fornecedor{
 
-	public Transportadora(String nome, String cnpj, ArrayList<Produto> produtos) {
-		super(nome, cnpj, produtos);
+	public Transportadora(String nome, String cnpj) {
+		super(nome, cnpj);
 	}
 	
 }
