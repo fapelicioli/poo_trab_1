@@ -583,8 +583,10 @@ public class Menu {
 		
 		String nome;
 		String cnpj;
-		int id;
+		int id, idp, idc;
+		int temp;
 		Transportadora transportadora;
+		Produto produto;
 		
 		System.out.println("\nSelecione a operacao:");
 		System.out.println("1 - Consultas de transportadoras");
@@ -592,7 +594,9 @@ public class Menu {
 			System.out.println("2 - Cadastrar transportadora");
 			System.out.println("3 - Alterar transportadora");
 			System.out.println("4 - Excluir transportadora");
-			System.out.println("5 - Menu principal\n");
+			System.out.println("5 - Adiciona carga");
+			System.out.println("6 - Remove carga");
+			System.out.println("7 - Menu principal\n");
 		} else {
 			System.out.println("2 - Menu principal\n");
 		}
@@ -627,6 +631,47 @@ public class Menu {
 						this.transportadoras();
 						break;
 					case 5:
+						System.out.println("Insira o id da transportadora para adicionar a carga:");
+						ArrayList<Produto> produtos = new ArrayList<Produto>();
+						id = entrada.nextInt();
+						transportadora = tabelat.consulta(id);
+						if(transportadora == null) {
+							System.out.println("Transportadora nao encontrada");
+							this.consultaTransportadora();
+						} else {
+							temp = 0;
+							while(temp != 2) {
+								System.out.println("Insira o id do produto para ser adicionado a carga:");
+								idp = entrada.nextInt();
+								produto = tabelap.consulta(idp);
+								if(produto == null ) {
+									System.out.println("Produto nao encontrado, insira um id valido.");
+								} else {
+									produtos.add(produto);
+									System.out.println("Produto adicionado. Deseja adicionar mais um produto? 1 - Sim 2 - Nao");
+									temp = entrada.nextInt();
+								}
+							}
+							transportadora.addCarga(new Carga(produtos));;
+							System.out.println("Carga adicionada com sucesso.");
+							this.transportadoras();
+						}
+						break;
+					case 6:
+						System.out.println("Insira o id da transportadora para remover a carga:");
+						id = entrada.nextInt();
+						transportadora = tabelat.consulta(id);
+						if(transportadora == null) {
+							System.out.println("Transportadora nao encontrada");
+							this.consultaTransportadora();
+						} else {
+							System.out.println("Insira o id da carga a ser removida:");
+							idc = entrada.nextInt();
+							transportadora.removeCarga(idc);
+							System.out.println("Carga removida");
+						}
+						break;
+					case 7:
 						this.principal();
 						break;
 					default:
