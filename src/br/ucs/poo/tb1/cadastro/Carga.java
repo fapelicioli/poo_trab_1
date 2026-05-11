@@ -3,8 +3,8 @@ package br.ucs.poo.tb1.cadastro;
 import java.util.ArrayList;
 
 public class Carga{
-	int id;
-	ArrayList<Produto> produtos = new ArrayList<Produto>();
+	private int id;
+	private ArrayList<Produto> produtos = new ArrayList<Produto>();
 	
 	public Carga(ArrayList<Produto> produtos) {
 		this.produtos = produtos;
