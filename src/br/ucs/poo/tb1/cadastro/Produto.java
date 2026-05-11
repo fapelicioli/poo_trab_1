@@ -2,8 +2,8 @@ package br.ucs.poo.tb1.cadastro;
 
 public class Produto extends Cadastro{
 	
-	String sku;
-	int idFornecedor;
+	private String sku;
+	private int idFornecedor;
 	
 	public Produto(String nome, String sku, int idFornecedor) {
 		this.id = 0;
@@ -11,7 +11,6 @@ public class Produto extends Cadastro{
 		this.sku = sku;
 		this.idFornecedor = idFornecedor;
 	}
-	
 	public String getSku() {
 		return sku;
 	}
