@@ -38,7 +38,7 @@ public class TableUser{
 	public User consulta(String nome) {
 		for(User i : data.values()) {
 			String temp = i.getNome();
-			if(temp == nome) {
+			if(temp.compareTo(nome) == 0) {
 				return i;
 			}
 		}
