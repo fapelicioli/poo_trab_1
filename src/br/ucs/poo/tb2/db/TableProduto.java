@@ -1,5 +1,7 @@
 package br.ucs.poo.tb2.db;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -9,8 +11,18 @@ public class TableProduto{
 	
 	private Map<Integer, Produto> data;
 	private int counter;
+	File database;
 	
-	public TableProduto() {
+	public TableProduto(File diretorio) {
+		
+		try {
+			database = new File(diretorio.getPath()+"/data/tableproduto.dat");
+			database.createNewFile();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		data = new TreeMap<>();
 		counter = 1;
 	}
