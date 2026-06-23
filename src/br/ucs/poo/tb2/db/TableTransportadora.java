@@ -1,5 +1,7 @@
 package br.ucs.poo.tb2.db;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -9,8 +11,18 @@ public class TableTransportadora{
 
 	private Map<Integer, Transportadora> data;
 	private int counter;
+	File database;
 	
-	public TableTransportadora() {
+	public TableTransportadora(File diretorio) {
+		
+		try {
+			database = new File(diretorio.getPath()+"/data/tabletransportadora.dat");
+			database.createNewFile();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		data = new TreeMap<>();
 		counter = 1;
 	}
