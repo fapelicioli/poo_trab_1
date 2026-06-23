@@ -1,5 +1,7 @@
 package br.ucs.poo.tb2.db;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -9,8 +11,21 @@ public class TableUser{
 
 	private Map<Integer, User> data;
 	private int counter;
+	File databaseinterno;
+	File databaseexterno;
 	
-	public TableUser() {
+	public TableUser(File diretorio) {
+		
+		try {
+			databaseinterno = new File(diretorio.getPath()+"/data/tableusuarioint.dat");
+			databaseinterno.createNewFile();
+			
+			databaseexterno = new File(diretorio.getPath()+"/data/tableusuarioext.dat");
+			databaseexterno.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		data = new TreeMap<>();
 		counter = 1;
 	}
