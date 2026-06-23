@@ -1,6 +1,8 @@
 package br.ucs.poo.tb2.cadastro;
 
-public abstract class Cadastro {
+import java.io.Serializable;
+
+public abstract class Cadastro implements Serializable{
 	
 	protected int id;
 	protected String nome;
