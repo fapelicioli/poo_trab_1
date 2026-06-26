@@ -11,6 +11,7 @@ public class TableUser implements Serializable{
 	private Map<Integer, User> data;
 	private int counter;
 	File database;
+	private static final long serialVersionUID = 1L;
 	
 	public TableUser(File diretorio) {
 		
@@ -23,6 +24,11 @@ public class TableUser implements Serializable{
 		
 		data = new TreeMap<>();
 		counter = 1;
+	}
+	
+	public void SetDatabase(File diretorio) {
+		database = new File(diretorio.getPath()+"/data/tableusuario.dat");
+		salvar();
 	}
 	
 	public void salvar() {
