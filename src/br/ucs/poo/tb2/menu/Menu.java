@@ -376,6 +376,8 @@ public class Menu {
 		int idf;
 		int id;
 		Produto produto;
+		float valor;
+		int quant;
 		
 		System.out.println("\nSelecione a operacao:");
 		System.out.println("1 - Consulta produtos");
@@ -403,7 +405,11 @@ public class Menu {
 						sku = entrada.next();
 						System.out.println("Insira o id do fornecedor do produto:");
 						idf = entrada.nextInt();
-						produto = new Produto(nome,sku,idf);
+						System.out.println("Insira o valor do produto:");
+						valor = entrada.nextFloat();
+						System.out.println("Insira a quantidade do produto em estoque:");
+						quant = entrada.nextInt();
+						produto = new Produto(nome,sku,idf, valor, quant);
 						tabelap.incluir(produto);
 						produto = tabelap.consultaSku(sku);
 						tabelat.consulta(idf).addProduto(produto);
@@ -670,7 +676,6 @@ public class Menu {
 							idc = entrada.nextInt();
 							transportadora.removeCarga(idc);
 							System.out.println("Carga removida com sucesso.");
-							this.transportadoras();
 						}
 						break;
 					case 7:
