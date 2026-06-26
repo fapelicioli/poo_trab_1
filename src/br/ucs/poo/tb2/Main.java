@@ -12,8 +12,6 @@ public class Main {
 		//System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		File diretorio = new File(System.getProperty("user.dir"));
 		
-		
-		//TableFornecedor tabelaf = new TableFornecedor(diretorio);
 		TableFornecedor tabelaf = null;
 		try {
 			FileInputStream dataIn = new FileInputStream(diretorio.getPath() + "/data/tablefornecedor.dat");
@@ -22,14 +20,12 @@ public class Main {
 			dataIn.close();
 			in.close();
 			tabelaf.SetDatabase(diretorio);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (FileNotFoundException | EOFException e) {
+			tabelaf = new TableFornecedor(diretorio);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-		//TableProduto tabelap = new TableProduto(diretorio);
 		TableProduto tabelap = null;
 		try {
 			FileInputStream dataIn = new FileInputStream(diretorio.getPath() + "/data/tableproduto.dat");
@@ -38,14 +34,12 @@ public class Main {
 			dataIn.close();
 			in.close();
 			tabelap.SetDatabase(diretorio);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (FileNotFoundException | EOFException e) {
+			tabelap = new TableProduto(diretorio);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-		//TableTransportadora tabelat = new TableTransportadora(diretorio);
 		TableTransportadora tabelat = null;
 		try {
 			FileInputStream dataIn = new FileInputStream(diretorio.getPath() + "/data/tabletransportadora.dat");
@@ -54,15 +48,13 @@ public class Main {
 			dataIn.close();
 			in.close();
 			tabelat.SetDatabase(diretorio);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (FileNotFoundException | EOFException e) {
+			tabelat = new TableTransportadora(diretorio);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		//TableUser tabelau = new TableUser(diretorio);
 		TableUser tabelau = null;
-		Menu menu = new Menu();
 		try {
 			FileInputStream dataIn = new FileInputStream(diretorio.getPath() + "/data/tableusuario.dat");
 			ObjectInputStream in = new ObjectInputStream(dataIn);
@@ -70,12 +62,13 @@ public class Main {
 			dataIn.close();
 			in.close();
 			tabelau.SetDatabase(diretorio);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+		} catch (FileNotFoundException | EOFException e) {
+			tabelau = new TableUser(diretorio);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		Menu menu = new Menu();
 		
 		//inicializacao de dados nas bases
 		//new DbBuilder(tabelaf, tabelap, tabelat, tabelau).inicializa();
