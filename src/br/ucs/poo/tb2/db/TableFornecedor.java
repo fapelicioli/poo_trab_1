@@ -10,7 +10,6 @@ public class TableFornecedor implements Serializable{
 	private Map<Integer, Fornecedor> data;
 	private int counter;
 	File database;
-	private static final long serialVersionUID = 1L;
 	
 	public TableFornecedor(File diretorio) {
 		database = new File(diretorio.getPath()+"/data/tablefornecedor.dat");
