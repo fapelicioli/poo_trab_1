@@ -11,7 +11,6 @@ public class TableUser implements Serializable{
 	private Map<Integer, User> data;
 	private int counter;
 	File database;
-	private static final long serialVersionUID = 1L;
 	
 	public TableUser(File diretorio) {
 		
