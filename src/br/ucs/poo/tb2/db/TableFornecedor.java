@@ -1,45 +1,32 @@
 package br.ucs.poo.tb2.db;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 import java.util.TreeMap;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
-
 import br.ucs.poo.tb2.cadastro.Fornecedor;
 
-public class TableFornecedor{
+public class TableFornecedor implements Serializable{
 	
 	private Map<Integer, Fornecedor> data;
 	private int counter;
 	File database;
 	
 	public TableFornecedor(File diretorio) {
-		
+		database = new File(diretorio.getPath()+"/data/tablefornecedor.dat");
 		try {
-			database = new File(diretorio.getPath()+"/data/tablefornecedor.dat");
 			database.createNewFile();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		data = new TreeMap<>();
 		counter = 1;
 	}
 	
-	public int incluir(Fornecedor fornecedor) {
-		int id = counter;
-		fornecedor.setId(id);
-		data.put(id, fornecedor);
+	public void salvar() {
 		try {
 			FileOutputStream dataOut = new FileOutputStream(database.getPath());
 			ObjectOutputStream objectOut = new ObjectOutputStream(dataOut);
-			objectOut.writeObject(fornecedor);
+			objectOut.writeObject(this);
 			objectOut.close();
 			dataOut.close();
 		} catch (FileNotFoundException e) {
@@ -47,17 +34,26 @@ public class TableFornecedor{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int incluir(Fornecedor fornecedor) {
+		int id = counter;
+		fornecedor.setId(id);
+		data.put(id, fornecedor);
 		counter++;
+		salvar();
 		return id;
 	}
 
 	public void alterar(int id, Fornecedor fornecedor) {
 		data.remove(id);
 		data.put(id, fornecedor);
+		salvar();
 	}
 
 	public void excluir(int id) {
 		data.remove(id);
+		salvar();
 	}
 
 	public Fornecedor consulta(int id) {
