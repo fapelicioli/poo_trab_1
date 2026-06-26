@@ -10,6 +10,13 @@ public class User implements Serializable{
 	private String local;
 	protected int permlevel = 0;
 	
+	public User(String nome, String senha) {
+		this.id = 0;
+		this.nome = nome;
+		this.senha = senha;
+		this.local = "interno";
+	}
+	
 	public User(String nome, String senha, String local) {
 		this.id = 0;
 		this.nome = nome;
