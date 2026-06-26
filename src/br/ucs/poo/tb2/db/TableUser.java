@@ -1,27 +1,22 @@
 package br.ucs.poo.tb2.db;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 import java.util.TreeMap;
 
 import br.ucs.poo.tb2.user.User;
 
-public class TableUser{
+public class TableUser implements Serializable{
 
 	private Map<Integer, User> data;
 	private int counter;
-	File databaseinterno;
-	File databaseexterno;
+	File database;
 	
 	public TableUser(File diretorio) {
 		
 		try {
-			databaseinterno = new File(diretorio.getPath()+"/data/tableusuarioint.dat");
-			databaseinterno.createNewFile();
-			
-			databaseexterno = new File(diretorio.getPath()+"/data/tableusuarioext.dat");
-			databaseexterno.createNewFile();
+			database = new File(diretorio.getPath()+"/data/tableusuario.dat");
+			database.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -29,22 +24,39 @@ public class TableUser{
 		data = new TreeMap<>();
 		counter = 1;
 	}
+	
+	public void salvar() {
+		try {
+			FileOutputStream dataOut = new FileOutputStream(database.getPath());
+			ObjectOutputStream objectOut = new ObjectOutputStream(dataOut);
+			objectOut.writeObject(this);
+			objectOut.close();
+			dataOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public int incluir(User user) {
 		int id = counter;
 		user.setId(id);
 		data.put(id, user);
 		counter++;
+		salvar();
 		return id;
 	}
 
 	public void alterar(int id, User user) {
 		data.remove(id);
 		data.put(id, user);
+		salvar();
 	}
 
 	public void excluir(int id) {
 		data.remove(id);
+		salvar();
 	}
 
 	public User consulta(int id) {
