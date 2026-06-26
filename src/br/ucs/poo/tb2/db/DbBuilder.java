@@ -21,7 +21,7 @@ public class DbBuilder {
 	public void inicializa() {
 		
 		Admin admbase = new Admin("admin", "admin");
-		User userbase = new User("user","user");
+		User userbase = new User("user","user","Interno");
 		
 		tabelau.incluir(admbase);
 		tabelau.incluir(userbase);
@@ -199,7 +199,6 @@ public class DbBuilder {
 		carga = new Carga(produtos);
 		transportadora.addCarga(carga);
 		tabelat.incluir(transportadora);
-		
 		
 	}
 }
