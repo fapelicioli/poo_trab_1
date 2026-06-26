@@ -11,7 +11,6 @@ public class TableTransportadora implements Serializable{
 	private Map<Integer, Transportadora> data;
 	private int counter;
 	File database;
-	private static final long serialVersionUID = 1L;
 	
 	public TableTransportadora(File diretorio) {
 		database = new File(diretorio.getPath()+"/data/tabletransportadora.dat");
