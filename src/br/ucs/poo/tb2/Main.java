@@ -21,6 +21,7 @@ public class Main {
 			tabelaf = (TableFornecedor) in.readObject();
 			dataIn.close();
 			in.close();
+			tabelaf.SetDatabase(diretorio);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -36,6 +37,7 @@ public class Main {
 			tabelap = (TableProduto) in.readObject();
 			dataIn.close();
 			in.close();
+			tabelap.SetDatabase(diretorio);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -51,6 +53,7 @@ public class Main {
 			tabelat = (TableTransportadora) in.readObject();
 			dataIn.close();
 			in.close();
+			tabelat.SetDatabase(diretorio);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -66,6 +69,7 @@ public class Main {
 			tabelau = (TableUser) in.readObject();
 			dataIn.close();
 			in.close();
+			tabelau.SetDatabase(diretorio);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
