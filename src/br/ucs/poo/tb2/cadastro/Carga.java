@@ -1,8 +1,9 @@
 package br.ucs.poo.tb2.cadastro;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Carga{
+public class Carga implements Serializable{
 	private int id;
 	private ArrayList<Produto> produtos = new ArrayList<Produto>();
 	
