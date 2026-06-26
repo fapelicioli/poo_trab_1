@@ -1,16 +1,20 @@
 package br.ucs.poo.tb2.user;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
 	
 	private int id;
 	private String nome;
 	private String senha;
+	private String local;
 	protected int permlevel = 0;
 	
-	public User(String nome, String senha) {
+	public User(String nome, String senha, String local) {
 		this.id = 0;
 		this.nome = nome;
 		this.senha = senha;
+		this.local = local;
 	}
 	
 	public int getId() {
@@ -33,6 +37,9 @@ public class User {
 	}
 	public int getPermlevel() {
 		return permlevel;
+	}
+	public String getLocal() {
+		return local;
 	}
 	
 }
