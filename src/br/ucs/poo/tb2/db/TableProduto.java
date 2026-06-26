@@ -1,30 +1,40 @@
 package br.ucs.poo.tb2.db;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Map;
 import java.util.TreeMap;
 
 import br.ucs.poo.tb2.cadastro.Produto;
 
-public class TableProduto{
+public class TableProduto implements Serializable{
 	
 	private Map<Integer, Produto> data;
 	private int counter;
 	File database;
 	
 	public TableProduto(File diretorio) {
-		
+		database = new File(diretorio.getPath()+"/data/tableproduto.dat");
 		try {
-			database = new File(diretorio.getPath()+"/data/tableproduto.dat");
 			database.createNewFile();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		data = new TreeMap<>();
 		counter = 1;
+	}
+	
+	public void salvar() {
+		try {
+			FileOutputStream dataOut = new FileOutputStream(database.getPath());
+			ObjectOutputStream objectOut = new ObjectOutputStream(dataOut);
+			objectOut.writeObject(this);
+			objectOut.close();
+			dataOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int incluir(Produto produto) {
@@ -32,16 +42,19 @@ public class TableProduto{
 		produto.setId(id);
 		data.put(id, produto);
 		counter++;
+		salvar();
 		return id;
 	}
 
 	public void alterar(int id, Produto produto) {
 		data.remove(id);
 		data.put(id, produto);
+		salvar();
 	}
 
 	public void excluir(int id) {
 		data.remove(id);
+		salvar();
 	}
 
 	public Produto consulta(int id) {
