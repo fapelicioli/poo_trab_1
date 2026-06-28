@@ -16,27 +16,118 @@ public class Menu {
 	private TableTransportadora tabelat;
 	private TableUser tabelau;
 	
-	public void login(TableFornecedor f, TableProduto p, TableTransportadora t, TableUser u) {
+	public void inicio(TableFornecedor f, TableProduto p, TableTransportadora t, TableUser u) {
 		
 		this.tabelaf = f;
 		this.tabelap = p;
 		this.tabelat = t;
 		this.tabelau = u;
 		
-		System.out.println("\nInsira o nome do usuário: ");
-		String nome = entrada.next();
-		User user = u.consulta(nome);
+		System.out.println("\nSelecione o sistema a ser acessado:");
+		System.out.println("1 - Sistema compra");
+		System.out.println("2 - Sistema interno");
+		System.out.println("3 - sair\n");
 		
-		if(user == null) {
+		int selection = entrada.nextInt();
+		
+		switch(selection) {
+			case 1:
+				this.baseExterno();
+				break;
+			case 2:
+				this.loginInterno();
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Selecione uma opcao valida.");
+				this.inicio(f,p,t,u);
+				break;
+		}
+	}
+	
+	public void baseExterno() {
+		System.out.println("\nDeseja logar ou registrar uma nova conta?:");
+		System.out.println("1 - Logar");
+		System.out.println("2 - Registrar");
+		System.out.println("3 - sair\n");
+		
+		int selection = entrada.nextInt();
+		
+		switch(selection) {
+			case 1:
+				this.loginExterno();
+				break;
+			case 2:
+				this.registroExterno();
+				break;
+			case 3:
+				return;
+			default:
+				System.out.println("Selecione uma opcao valida.");
+				this.baseExterno();
+				break;
+		}
+	}
+	
+	public void loginExterno() {
+		
+		System.out.println("\nInsira o nome do usuario: ");
+		String nome = entrada.next();
+		User user = this.tabelau.consulta(nome);
+		
+		if(user == null || user.getLocal() == "Interno") {
 			System.out.println("Usuario nao encontrado");
-			this.login(f,p,t,u);
+			this.baseExterno();
 		}
 		
 		System.out.println("Insira a senha do usuário: ");
 		String senha = entrada.next();
 		if(senha.compareTo(user.getSenha()) != 0) {
 			System.out.println("Senha incorreta");
-			this.login(f,p,t,u);
+			this.loginExterno();
+		} else {
+			loggeduser = user;
+			this.principalExterno();
+		}
+		
+	}
+	
+	public void registroExterno() {
+		
+		System.out.println("\nInsira o nome do usuario: ");
+		String nome = entrada.next();
+		User user = this.tabelau.consulta(nome);
+		if(!(user == null)) {
+			System.out.println("\nNome de usuario invalido, tente novamente.");
+			registroExterno();
+		} else {
+			System.out.println("\nInsira a senha: ");
+			String senha =  entrada.next();
+			
+			User newUser = new Cliente(nome, senha);
+			tabelau.incluir(newUser);
+			System.out.println("\nUsuario cadastrado, realize o login a seguir.\n");
+			loginExterno();
+		}
+	}
+	
+	public void loginInterno() {
+		
+		System.out.println("\nInsira o nome do usuario: ");
+		String nome = entrada.next();
+		User user = this.tabelau.consulta(nome);
+		
+		if(user == null || user.getLocal() == "Externo") {
+			System.out.println("Usuario nao encontrado");
+			this.loginInterno();
+		}
+		
+		System.out.println("Insira a senha do usuário: ");
+		String senha = entrada.next();
+		if(senha.compareTo(user.getSenha()) != 0) {
+			System.out.println("Senha incorreta");
+			this.loginInterno();
 		} else {
 			loggeduser = user;
 			this.principal();
@@ -76,6 +167,56 @@ public class Menu {
 				break;
 		}
 	
+	}
+	
+	public void principalExterno() {
+		
+		System.out.println("\nSelecione o modulo:");
+		System.out.println("1 - Comprar");
+		System.out.println("2 - Meus pedidos");
+		System.out.println("3 - Alterar senha");
+		System.out.println("4 - sair\n");
+		
+		int selection = entrada.nextInt();
+		
+		switch(selection) {
+			case 1:
+				this.comprar();
+				break;
+			case 2:
+				this.pedidos();
+				break;
+			case 3:
+				this.alterarSenha();
+				break;
+			case 4:
+				return;
+			default:
+				System.out.println("Selecione uma opcao valida.");
+				this.principalExterno();
+				break;
+		}
+	}
+	
+	public void alterarSenha() {
+		System.out.println("\nInsira a senha atual:");
+		String senha = entrada.next();
+		if(senha.compareTo(this.loggeduser.getSenha()) != 0) {
+			System.out.println("\nSenha incorreta. Tente novamente.");
+		} else {
+			System.out.println("\nSelecione a nova senha:");
+			senha = entrada.next();
+			System.out.println("\nNova senha registrada com sucesso.\n");
+		}
+		this.principalExterno();
+	}
+	
+	public void comprar() {
+		
+	}
+	
+	public void pedidos() {
+		
 	}
 	
 	private void users() {
