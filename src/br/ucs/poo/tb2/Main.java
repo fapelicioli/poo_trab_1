@@ -71,10 +71,10 @@ public class Main {
 		Menu menu = new Menu();
 		
 		//inicializacao de dados nas bases
-		//new DbBuilder(tabelaf, tabelap, tabelat, tabelau).inicializa();
+		new DbBuilder(tabelaf, tabelap, tabelat, tabelau).inicializa();
 		
 		//roda menus
-		menu.login(tabelaf,tabelap,tabelat,tabelau);
+		menu.inicio(tabelaf,tabelap,tabelat,tabelau);
 		
 	}
 
