@@ -58,7 +58,7 @@ public class Externo extends Menu{
 		String nome = entrada.next();
 		User user = this.tabelau.consulta(nome);
 		
-		if(user == null || user.getLocal() != "Externo") {
+		if(user == null || user.getLocal() == "Interno") {
 			System.out.println("Usuario nao encontrado");
 			this.base();
 		}
@@ -225,7 +225,9 @@ public class Externo extends Menu{
 			}
 		}
 		((Cliente) this.loggeduser).addPedido(newPedido);
+		this.salvaUsuario();
 		this.carrinho.clear();
+		this.principal();
 	}
 
 	private void resultado() {
@@ -241,7 +243,7 @@ public class Externo extends Menu{
 				if(prod.getQuantidade() > 0) {
 					quant = " | Quantidade disponivel: " + prod.getQuantidade() + " |";
 				} else {
-					quant = " | Quantidade disponivel: 0 |";
+					quant = " | Quantidade disponivel: 0 (Produto indisponivel) |";
 				}
 				
 				System.out.println("| " + pos + " | ID: " + prod.getId() + " | Nome: " + prod.getNome() + " | Valor: R$" + prod.getValor() + quant);
@@ -334,7 +336,7 @@ public class Externo extends Menu{
 		} else {
 			System.out.println("Pedidos:");
 			for(Pedido ped : ((Cliente) this.loggeduser).getPedidos().values()) {
-				System.out.println("| Numero: " + ped.getId() + " | Status: " + ped.getStatus() + " | Data de pedido: " + ped.getDataCompra() + " | Valor: " + ped.getValorTotal() + " |");
+				System.out.println("| Numero: " + ped.getId() + " | Status: " + ped.getStatus() + " | Data de pedido: " + ped.getDataCompra().getData() + " | Valor: " + ped.getValorTotal() + " |");
 			}
 			System.out.println("Digite 0 para retornar ou o numero do pedido para mais detalhes:");
 			
@@ -349,18 +351,19 @@ public class Externo extends Menu{
 						this.pedidos();
 					} else {
 						Pedido pedido = ((Cliente) this.loggeduser).getPedidos().get(selection);
-						System.out.println("Pedido " + pedido.getId());
-						System.out.println("\nStatus: " + pedido.getStatus());
-						System.out.println("Data de compra: " + pedido.getDataCompra());
+						System.out.println("| Pedido " + pedido.getId());
+						System.out.println("\n| Status: " + pedido.getStatus());
+						System.out.println("| Data de compra: " + pedido.getDataCompra().getData());
 						if(pedido.getStatus() == "Enviado") {
-							System.out.println("Data de envio: " + pedido.getDataEnvio());
+							System.out.println("| Data de envio: " + pedido.getDataEnvio());
 						}
 						if(pedido.getStatus() != "Cancelado") {
 							System.out.println("\n| Selecione a operacao que deseja realizar: | 1 - Cancelar pedido | 2 - Voltar |");
 							selection = entrada.nextInt();
 							if(selection == 1) {
 								pedido.setStatus("Cancelado");
-								System.out.println("Pedido cancelado.");
+								this.salvaUsuario();
+								System.out.println("| Pedido cancelado.");
 								this.pedidos();
 							} else if(selection == 2){
 								this.pedidos();
@@ -387,5 +390,11 @@ public class Externo extends Menu{
 				this.pedidos();
 			}
 		}
+	}
+	
+	private void salvaUsuario() {
+		int id = this.loggeduser.getId();
+		this.tabelau.alterar(id, loggeduser);
+		tabelau.salvar();
 	}
 }
