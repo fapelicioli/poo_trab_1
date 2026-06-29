@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 
 import br.ucs.poo.tb2.cadastro.Pedido;
 import br.ucs.poo.tb2.cadastro.Produto;
+import br.ucs.poo.tb2.cadastro.Transportadora;
 import br.ucs.poo.tb2.db.*;
 import br.ucs.poo.tb2.excecoes.StockException;
 import br.ucs.poo.tb2.user.Cliente;
@@ -14,6 +15,7 @@ public class Externo extends Menu{
 	
 	private ArrayList<Produto> carrinho = new ArrayList<Produto>();
 	private ArrayList<Produto> res = new ArrayList<Produto>();
+	int frete = 0;
 	
 	protected Externo(TableFornecedor f, TableProduto p, TableTransportadora t, TableUser u) {
 		this.tabelaf = f;
@@ -304,27 +306,72 @@ public class Externo extends Menu{
 				System.out.println("| ID: " + prod.getId() + " | Nome: " + prod.getNome() + " | Valor: R$" + prod.getValor() + " |");
 				total += prod.getValor();
 			}
-			System.out.println("\n | Valor total: R$"+total);
-			System.out.println("| Oque deseja fazer? | 1- Voltar | 2- Finalizar pedido |");
-			
-			try {
-				int selection = entrada.nextInt();
-				switch(selection) {
-					case 1:
-						this.comprar();
-						break;
-					case 2:
-						this.finalizaPedido();
-						break;
-					default:
-						System.out.println("Selecione uma opcao valida.");
-						this.carrinho();
-						break;
+			System.out.println("\n| Valor total: R$"+total);
+			if(this.frete == 0) {
+				System.out.println("| Oque deseja fazer? | 1- Voltar | 2- Selecionar frete |");
+				try {
+					int selection = entrada.nextInt();
+					switch(selection) {
+						case 1:
+							this.comprar();
+							break;
+						case 2:
+							int count = 1;
+							System.out.println("Selecione a transportadora:");
+							for(Transportadora transp : this.tabelat.consultaCompleta().values()) {
+								System.out.println("| Pos: " + count + " | Nome: " + transp.getNome() + " | Opcoes de frete: " + transp.getProdutos().size() + " |");
+								count += 1;
+							}
+							System.out.println("Indique a posicao da transportadora desejada: ");
+							selection = entrada.nextInt();
+							if(selection < count) {
+								Transportadora transp = this.tabelat.consultaCompleta().get(selection - 1);
+								count = 1;
+								for(Produto fret : transp.getProdutos()) {
+									System.out.println("| Pos: " + count + " | Tipo: " + fret.getNome() + " | Valor: R$" + fret.getValor() + " |");
+									count += 1;
+								}
+								System.out.println("Escolha o frete: ");
+								selection = entrada.nextInt();
+								carrinho.add(transp.getProdutos().get(selection - 1));
+								this.frete += 1;
+								System.out.println("Frete selecionado.");
+							} else {
+								System.out.println("Transportadora selecionada invalida, tente novamente.");
+							}
+							this.carrinho();
+							break;
+						default:
+							System.out.println("Selecione uma opcao valida.");
+							this.carrinho();
+							break;
+					}
+				} catch(InputMismatchException e) {
+					System.out.println("Selecione uma opcao valida.");
+					entrada.next();
+					this.carrinho();
 				}
-			} catch(InputMismatchException e) {
-				System.out.println("Selecione uma opcao valida.");
-				entrada.next();
-				this.carrinho();
+			} else {
+				System.out.println("| Oque deseja fazer? | 1- Voltar | 2- Finalizar pedido |");
+				try {
+					int selection = entrada.nextInt();
+					switch(selection) {
+						case 1:
+							this.comprar();
+							break;
+						case 2:
+							this.finalizaPedido();
+							break;
+						default:
+							System.out.println("Selecione uma opcao valida.");
+							this.carrinho();
+							break;
+					}
+				} catch(InputMismatchException e) {
+					System.out.println("Selecione uma opcao valida.");
+					entrada.next();
+					this.carrinho();
+				}
 			}
 		}
 	}
