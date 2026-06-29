@@ -14,7 +14,7 @@ public class User implements Serializable{
 		this.id = 0;
 		this.nome = nome;
 		this.senha = senha;
-		this.local = "interno";
+		this.local = "Interno";
 	}
 	
 	public User(String nome, String senha, String local) {
