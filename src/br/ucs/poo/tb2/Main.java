@@ -77,5 +77,4 @@ public class Main {
 		menu.inicio(tabelaf,tabelap,tabelat,tabelau);
 		
 	}
-
 }
