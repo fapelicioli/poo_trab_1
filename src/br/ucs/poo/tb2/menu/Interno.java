@@ -5,8 +5,7 @@ import java.util.InputMismatchException;
 
 import br.ucs.poo.tb2.cadastro.*;
 import br.ucs.poo.tb2.db.*;
-import br.ucs.poo.tb2.user.Admin;
-import br.ucs.poo.tb2.user.User;
+import br.ucs.poo.tb2.user.*;
 
 public class Interno extends Menu{
 	
@@ -46,7 +45,9 @@ public class Interno extends Menu{
 		System.out.println("2 - Fornecedores");
 		System.out.println("3 - Produtos");
 		System.out.println("4 - Transportadoras");
-		System.out.println("5 - sair\n");
+		System.out.println("5 - Clientes");
+		System.out.println("6 - pedidos");
+		System.out.println("7 - sair\n");
 		
 		try {
 			int selection = entrada.nextInt();
@@ -65,6 +66,12 @@ public class Interno extends Menu{
 					this.transportadoras();
 					break;
 				case 5:
+					this.clientes();
+					break;
+				case 6:
+					this.pedidos();
+					break;
+				case 7:
 					return;
 				default:
 					System.out.println("Selecione uma opcao valida.");
@@ -77,8 +84,6 @@ public class Interno extends Menu{
 			this.principal();
 		}
 	}
-	
-
 	
 	private void users() {
 		String nome;
@@ -869,5 +874,106 @@ public class Interno extends Menu{
 			entrada.next();
 			this.consultaTransportadora();
 		}
+	}
+	
+	private void clientes() {
+		
+		System.out.println("Clientes: ");
+		int count = 1;
+		if(this.tabelau.consultaCompleta().size() > 1) {
+			for(User user : this.tabelau.consultaCompleta().values()) {
+				if(user.getClass() == Cliente.class) {
+					System.out.println("| Posicao: " + count + " | ID: " + user.getId() + " | Nome: " + user.getNome() + " | Pedidos: " + ((Cliente) user).getPedidos().size() + " |");
+					count += 1;
+				}
+			}
+			this.principal();
+		} else {
+			System.out.println("Nenhum cliente cadastrado.");
+			this.principal();
+		}
+	}
+	
+	private void pedidos() {
+		System.out.println("| Pedidos: ");
+		int count = 1;
+		ArrayList<Pedido> res = new ArrayList<Pedido>();
+		if(this.tabelau.consultaCompleta().size() > 0) {
+			for(User user : this.tabelau.consultaCompleta().values()) {
+				if(user.getClass() == Cliente.class) {
+					for(Pedido pedido : ((Cliente) user).getPedidos().values()) {
+						res.add(pedido);
+						System.out.println("| Posicao: " + count + " | ID: " + pedido.getId() + " | Cliente: " + user.getNome() + " | Valor: " + pedido.getValorTotal() + " | Status: " + pedido.getStatus() + " | ");
+						count += 1;
+					}
+				}
+			}
+			System.out.println("\nSelecione a acao que deseja realizar:");
+			System.out.println("1 - Dados de pedido");
+			System.out.println("2 - Sair");
+			
+			try{
+				int selection = entrada.nextInt();
+				
+				switch(selection) {
+					case 1:
+						System.out.println("Insira a posicao do pedido que deseja consultar:\n");
+						selection = entrada.nextInt();
+						Pedido pedido = res.get(selection - 1);
+						System.out.println("Pedido " + pedido.getId());
+						System.out.println("\nStatus: " + pedido.getStatus());
+						System.out.println("Data de compra: " + pedido.getDataCompra().getData());
+						if(pedido.getStatus() == "Enviado") {
+							System.out.println("Data de envio: " + pedido.getDataEnvio().getData());
+						}
+						if(pedido.getStatus() != "Cancelado") {
+							System.out.println("\n| Selecione a operacao que deseja realizar: | 1 - Cancelar pedido | 2 - Enviar pedido | 3 - Sair |");
+							selection = entrada.nextInt();
+							if(selection == 1) {
+								((Cliente) tabelau.consulta(pedido.getIdCliente())).getPedidos().get(pedido.getId()).setStatus("Cancelado");
+								System.out.println("Pedido cancelado.");
+								this.pedidos();
+							} else if(selection == 2){
+								((Cliente) tabelau.consulta(pedido.getIdCliente())).getPedidos().get(pedido.getId()).setStatus("Enviado");
+								System.out.println("Pedido enviado.");
+								this.pedidos();
+							} else if(selection == 3){
+								this.principal();
+								break;
+							} else {
+								System.out.println("Selecione uma opcao valida.");
+								this.pedidos();
+							}
+						} else {
+							System.out.println("Data de cancelamento: " + pedido.getDataCancelamento().getData());
+							System.out.println("\n| Selecione a operacao que deseja realizar: | 1 - Voltar |");
+							selection = entrada.nextInt();
+							if(selection == 1) {
+								this.pedidos();
+							} else {
+								System.out.println("Selecione uma opcao valida.");
+								this.pedidos();
+							}
+						}
+						this.principal();
+						break;
+					case 2:
+						this.principal();
+						break;
+					default:
+						System.out.println("Selecione uma opcao valida.");
+						entrada.next();
+						this.pedidos();
+				}
+			} catch(InputMismatchException e) {
+				System.out.println("Selecione uma opcao valida.");
+				entrada.next();
+				this.pedidos();
+			}
+		} else {
+			System.out.println("Nenhum cliente cadastrado.");
+			this.principal();
+		}
+		res.clear();
 	}
 }
