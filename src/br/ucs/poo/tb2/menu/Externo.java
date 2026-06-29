@@ -33,10 +33,10 @@ public class Externo extends Menu{
 		
 			switch(selection) {
 				case 1:
-					this.loginExterno();
+					this.login();
 					break;
 				case 2:
-					this.registroExterno();
+					this.registro();
 					break;
 				case 3:
 					return;
@@ -52,7 +52,7 @@ public class Externo extends Menu{
 		}
 	}
 	
-	private void loginExterno() {
+	private void login() {
 		
 		System.out.println("\nInsira o nome do usuario: ");
 		String nome = entrada.next();
@@ -67,7 +67,7 @@ public class Externo extends Menu{
 		String senha = entrada.next();
 		if(senha.compareTo(user.getSenha()) != 0) {
 			System.out.println("Senha incorreta");
-			this.loginExterno();
+			this.login();
 		} else {
 			loggeduser = user;
 			this.principalExterno();
@@ -75,14 +75,14 @@ public class Externo extends Menu{
 		
 	}
 	
-	private void registroExterno() {
+	private void registro() {
 		
 		System.out.println("\nInsira o nome do usuario: ");
 		String nome = entrada.next();
 		User user = this.tabelau.consulta(nome);
 		if(!(user == null || user.getLocal() == "Interno")) {
 			System.out.println("\nNome de usuario invalido, tente novamente.");
-			registroExterno();
+			registro();
 		} else {
 			System.out.println("\nInsira a senha: ");
 			String senha =  entrada.next();
@@ -90,7 +90,7 @@ public class Externo extends Menu{
 			User newUser = new Cliente(nome, senha);
 			tabelau.incluir(newUser);
 			System.out.println("\nUsuario cadastrado, realize o login a seguir.\n");
-			loginExterno();
+			login();
 		}
 	}
 	
