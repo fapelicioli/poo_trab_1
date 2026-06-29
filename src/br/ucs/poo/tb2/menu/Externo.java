@@ -221,12 +221,15 @@ public class Externo extends Menu{
 		Pedido newPedido = new Pedido(this.carrinho, this.loggeduser.getId());
 		for(Produto prod : this.carrinho) {
 			try {
-				(this.tabelap.consulta(prod.getId())).removeEstoque(1);
+				if(!prod.getNome().contains("Frete")) {
+					(this.tabelap.consulta(prod.getId())).removeEstoque(1);
+				}
 			} catch (StockException e) {
 				e.printStackTrace();
 			}
 		}
 		((Cliente) this.loggeduser).addPedido(newPedido);
+		System.out.println("Pedido finalizado.");
 		this.salvaUsuario();
 		this.carrinho.clear();
 		this.principal();
@@ -325,7 +328,7 @@ public class Externo extends Menu{
 							System.out.println("Indique a posicao da transportadora desejada: ");
 							selection = entrada.nextInt();
 							if(selection < count) {
-								Transportadora transp = this.tabelat.consultaCompleta().get(selection - 1);
+								Transportadora transp = this.tabelat.consultaCompleta().get(selection);
 								count = 1;
 								for(Produto fret : transp.getProdutos()) {
 									System.out.println("| Pos: " + count + " | Tipo: " + fret.getNome() + " | Valor: R$" + fret.getValor() + " |");
@@ -401,10 +404,20 @@ public class Externo extends Menu{
 						System.out.println("| Pedido " + pedido.getId());
 						System.out.println("\n| Status: " + pedido.getStatus());
 						System.out.println("| Data de compra: " + pedido.getDataCompra().getData());
-						if(pedido.getStatus() == "Enviado") {
+						if(pedido.getStatus().equals("Enviado")) {
 							System.out.println("| Data de envio: " + pedido.getDataEnvio());
 						}
-						if(pedido.getStatus() != "Cancelado") {
+						if(pedido.getStatus().equals("Cancelado")) {
+							System.out.println("Data de cancelamento: " + pedido.getDataCancelamento());
+						}
+						System.out.println("| Produtos no pedido: |");
+						float valortot = 0;
+						for(Produto prod : pedido.getProdutos()) {
+							System.out.println("| ID: " + prod.getId() + " | Nome: " + prod.getNome() + " | Valor: R$" + prod.getValor() + " |");
+							valortot += prod.getValor();
+						}
+						System.out.println("| Valor total: R$" + valortot + " |");
+						if(!pedido.getStatus().equals("Cancelado")) {
 							System.out.println("\n| Selecione a operacao que deseja realizar: | 1 - Cancelar pedido | 2 - Voltar |");
 							selection = entrada.nextInt();
 							if(selection == 1) {
@@ -419,7 +432,6 @@ public class Externo extends Menu{
 								this.pedidos();
 							}
 						} else {
-							System.out.println("Data de cancelamento: " + pedido.getDataCancelamento());
 							System.out.println("\n| Selecione a operacao que deseja realizar: | 1 - Voltar |");
 							selection = entrada.nextInt();
 							if(selection == 1) {
