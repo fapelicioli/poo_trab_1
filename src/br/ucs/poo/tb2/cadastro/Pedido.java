@@ -13,6 +13,7 @@ public class Pedido extends Carga{
 	public Pedido(ArrayList<Produto> produtos, int idCliente) {
 		super(produtos);
 		this.compra = new Data();
+		this.idCliente = idCliente;
 		this.status = "Criado";
 		this.cancelamento = null;
 		this.envio = null;
