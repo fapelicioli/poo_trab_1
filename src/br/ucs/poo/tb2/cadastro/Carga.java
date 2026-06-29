@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Carga implements Serializable{
 	private int id;
-	private ArrayList<Produto> produtos = new ArrayList<Produto>();
+	protected ArrayList<Produto> produtos = new ArrayList<Produto>();
 	
 	public Carga(ArrayList<Produto> produtos) {
 		this.produtos = produtos;
