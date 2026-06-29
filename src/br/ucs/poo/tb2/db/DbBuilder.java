@@ -22,10 +22,11 @@ public class DbBuilder {
 		
 		Admin admbase = new Admin("admin", "admin");
 		User userbase = new User("user","user");
+		Cliente clientebase = new Cliente("cliente", "cliente");
 		
 		tabelau.incluir(admbase);
 		tabelau.incluir(userbase);
-		
+		tabelau.incluir(clientebase);
 		
 		Fornecedor fornecedor = new Fornecedor("P & J LTDA","30.973.354/0001-83");
 		tabelaf.incluir(fornecedor);
@@ -132,6 +133,12 @@ public class DbBuilder {
 		produtos.add(tabelap.consulta(6));
 		carga = new Carga(produtos);
 		transportadora.addCarga(carga);
+		produto = new Produto("Frete lento","FT01",transportadora.getId(),25.0f,9999);
+		transportadora.addProduto(produto);
+		produto = new Produto("Frete rapido","FT02",transportadora.getId(),50.0f,9999);
+		transportadora.addProduto(produto);
+		produto = new Produto("Frete expresso","FT03",transportadora.getId(),100.0f,9999);
+		transportadora.addProduto(produto);
 		tabelat.incluir(transportadora);
 		
 		produtos = new ArrayList<Produto>();
@@ -165,6 +172,12 @@ public class DbBuilder {
 		produtos.add(tabelap.consulta(6));
 		carga = new Carga(produtos);
 		transportadora.addCarga(carga);
+		produto = new Produto("Frete lento","FT01",transportadora.getId(),25.0f,999);
+		transportadora.addProduto(produto);
+		produto = new Produto("Frete rapido","FT02",transportadora.getId(),50.0f,999);
+		transportadora.addProduto(produto);
+		produto = new Produto("Frete expresso","FT03",transportadora.getId(),100.0f,999);
+		transportadora.addProduto(produto);
 		tabelat.incluir(transportadora);
 		
 		produtos = new ArrayList<Produto>();
@@ -198,6 +211,12 @@ public class DbBuilder {
 		produtos.add(tabelap.consulta(6));
 		carga = new Carga(produtos);
 		transportadora.addCarga(carga);
+		produto = new Produto("Frete lento","FT01",transportadora.getId(),25.0f,9999);
+		transportadora.addProduto(produto);
+		produto = new Produto("Frete rapido","FT02",transportadora.getId(),50.0f,9999);
+		transportadora.addProduto(produto);
+		produto = new Produto("Frete expresso","FT03",transportadora.getId(),100.0f,9999);
+		transportadora.addProduto(produto);
 		tabelat.incluir(transportadora);
 		
 	}
