@@ -164,11 +164,13 @@ public class Externo extends Menu{
 				break;
 			case 3:
 				this.pesquisaTodos();
+				break;
 			case 4:
 				this.carrinho();
 				break;
 			case 5:
-				return;
+				this.principal();
+				break;
 			default:
 				System.out.println("Selecione uma opcao valida.");
 				this.comprar();
@@ -221,7 +223,7 @@ public class Externo extends Menu{
 		Pedido newPedido = new Pedido(this.carrinho, this.loggeduser.getId());
 		for(Produto prod : this.carrinho) {
 			try {
-				if(!prod.getNome().contains("Frete")) {
+				if(!(prod.getNome().contains("Frete"))) {
 					(this.tabelap.consulta(prod.getId())).removeEstoque(1);
 				}
 			} catch (StockException e) {
@@ -231,6 +233,8 @@ public class Externo extends Menu{
 		((Cliente) this.loggeduser).addPedido(newPedido);
 		System.out.println("Pedido finalizado.");
 		this.salvaUsuario();
+		this.frete = 0;
+		this.tabelap.salvar();
 		this.carrinho.clear();
 		this.principal();
 	}
@@ -272,8 +276,8 @@ public class Externo extends Menu{
 					System.out.println("Insira a quantidade que deseja comprar:\n");
 					quantCompra = entrada.nextInt();
 				
-					if(quantCompra > res.get(selection).getQuantidade()) {
-						System.out.println("O produto nao tem a quantidade necessaria, estoque atual: " + res.get(selection).getQuantidade());
+					if(quantCompra > res.get(selection - 1).getQuantidade()) {
+						System.out.println("O produto nao tem a quantidade necessaria, estoque atual: " + res.get(selection - 1).getQuantidade());
 						this.resultado();
 					} else {
 						for(int i = 0; i < quantCompra; i++) {
@@ -455,5 +459,6 @@ public class Externo extends Menu{
 		int id = this.loggeduser.getId();
 		this.tabelau.alterar(id, loggeduser);
 		tabelau.salvar();
+		this.loggeduser = tabelau.consulta(id);
 	}
 }
