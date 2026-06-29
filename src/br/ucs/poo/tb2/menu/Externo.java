@@ -70,7 +70,7 @@ public class Externo extends Menu{
 			this.login();
 		} else {
 			loggeduser = user;
-			this.principalExterno();
+			this.principal();
 		}
 		
 	}
@@ -94,7 +94,7 @@ public class Externo extends Menu{
 		}
 	}
 	
-	private void principalExterno() {
+	private void principal() {
 		
 		System.out.println("\nSelecione o modulo:");
 		System.out.println("1 - Comprar");
@@ -119,13 +119,13 @@ public class Externo extends Menu{
 					return;
 				default:
 					System.out.println("Selecione uma opcao valida.");
-					this.principalExterno();
+					this.principal();
 					break;
 			}
 		} catch(InputMismatchException e) {
 			System.out.println("Selecione uma opcao valida.");
 			entrada.next();
-			this.principalExterno();
+			this.principal();
 		}
 	}
 	
@@ -139,7 +139,7 @@ public class Externo extends Menu{
 			senha = entrada.next();
 			System.out.println("\nNova senha registrada com sucesso.\n");
 		}
-		this.principalExterno();
+		this.principal();
 	}
 	
 	private void comprar() {
@@ -330,7 +330,7 @@ public class Externo extends Menu{
 	private void pedidos() {
 		if(((Cliente) this.loggeduser).getPedidos().values().size() == 0 ) {
 			System.out.println("Nenhum pedido encontrado.");
-			this.principalExterno();
+			this.principal();
 		} else {
 			System.out.println("Pedidos:");
 			for(Pedido ped : ((Cliente) this.loggeduser).getPedidos().values()) {
@@ -342,7 +342,7 @@ public class Externo extends Menu{
 				int selection = entrada.nextInt();
 			
 				if(selection == 0) {
-					this.principalExterno();
+					this.principal();
 				} else {
 					if(selection > ((Cliente) this.loggeduser).getPedidos().size()) {
 						System.out.println("Digite um numero valido de pedido.");
